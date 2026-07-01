@@ -1,0 +1,28 @@
+{
+  "name": "elementor-mcp",
+  "version": "0.4.0",
+  "description": "MCP server that compiles a friendly blueprint into import-ready Elementor v4 (Atomic Widgets) JSON.",
+  "type": "module",
+  "bin": {
+    "elementor-mcp": "dist/server.js"
+  },
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/server.js",
+    "selftest": "node dist/selftest.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.23.8",
+    "zod-to-json-schema": "^3.24.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0"
+  }
+}

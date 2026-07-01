@@ -1,0 +1,8 @@
+[
+  "filesystem",
+  "shell",
+  "search_memory",
+  "add_memory",
+  "request_approval",
+  "telegram_notify"
+]

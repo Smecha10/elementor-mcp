@@ -1,0 +1,15 @@
+node_modules/
+dist/
+output/
+*.log
+# Agent sessions and task history (not source code)
+agent_sessions/
+task_history.jsonl
+handoff.log
+# Research files (large, generated)
+files/
+# Config with potential secrets
+config.json
+allowed_tools.json
+# System prompt (operator-specific)
+system_prompt.md

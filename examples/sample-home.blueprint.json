@@ -1,0 +1,387 @@
+{
+  "title": "Acme HR — Home",
+  "fileName": "sample-home",
+  "theme": {
+    "colors": {
+      "primary": "#1A2D5A",
+      "accent": "#E8743B",
+      "bg": "#FFFFFF",
+      "surface": "#F6F8FB",
+      "text": "#1A1A1A",
+      "muted": "#5B6472"
+    },
+    "radius": {
+      "md": "1rem",
+      "lg": "1.75rem"
+    }
+  },
+  "tree": [
+    {
+      "type": "section",
+      "title": "Hero",
+      "style": {
+        "background": "{colors.bg}",
+        "padding": {
+          "top": "5rem",
+          "bottom": "5rem"
+        },
+        "mobile": {
+          "padding": {
+            "top": "2.5rem",
+            "bottom": "2.5rem"
+          }
+        }
+      },
+      "children": [
+        {
+          "type": "flex",
+          "direction": "row",
+          "style": {
+            "gap": "3rem",
+            "alignItems": "center",
+            "maxWidth": "1200px",
+            "width": "100%",
+            "margin": "0 auto",
+            "padding": {
+              "left": "1.5rem",
+              "right": "1.5rem"
+            },
+            "mobile": {
+              "flexDirection": "column"
+            }
+          },
+          "children": [
+            {
+              "type": "flex",
+              "direction": "column",
+              "style": {
+                "gap": "1.5rem"
+              },
+              "children": [
+                {
+                  "type": "heading",
+                  "level": 1,
+                  "text": "HR Consulting for Growing Businesses",
+                  "style": {
+                    "fontSize": "3rem",
+                    "fontWeight": "700",
+                    "color": "{colors.primary}",
+                    "lineHeight": "1.1",
+                    "mobile": {
+                      "fontSize": "2rem"
+                    }
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "Expert guidance tailored to your team — compliance, hiring, and culture handled.",
+                  "style": {
+                    "fontSize": "1.125rem",
+                    "color": "{colors.muted}",
+                    "maxWidth": "55ch"
+                  }
+                },
+                {
+                  "type": "button",
+                  "text": "Schedule a Consultation",
+                  "style": {
+                    "color": "#fff",
+                    "background": "{colors.accent}",
+                    "fontWeight": "700",
+                    "padding": {
+                      "top": "1rem",
+                      "right": "2.5rem",
+                      "bottom": "1rem",
+                      "left": "2.5rem"
+                    },
+                    "borderRadius": "{radius.md}",
+                    "hover": {
+                      "background": "#cf5f2b"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "image",
+              "src": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800",
+              "style": {
+                "borderRadius": "{radius.lg}",
+                "boxShadow": "0 10px 40px rgba(26,45,90,0.10)",
+                "width": "100%"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "title": "Services",
+      "style": {
+        "background": "{colors.surface}",
+        "padding": {
+          "top": "4rem",
+          "bottom": "4rem"
+        }
+      },
+      "children": [
+        {
+          "type": "flex",
+          "direction": "column",
+          "style": {
+            "gap": "2.5rem",
+            "maxWidth": "1200px",
+            "width": "100%",
+            "margin": "0 auto",
+            "padding": {
+              "left": "1.5rem",
+              "right": "1.5rem"
+            }
+          },
+          "children": [
+            {
+              "type": "heading",
+              "level": 2,
+              "text": "What we do",
+              "style": {
+                "fontSize": "2.25rem",
+                "fontWeight": "700",
+                "color": "{colors.primary}",
+                "textAlign": "center"
+              }
+            },
+            {
+              "type": "flex",
+              "direction": "row",
+              "style": {
+                "gap": "2rem",
+                "flexWrap": "wrap",
+                "mobile": {
+                  "flexDirection": "column"
+                }
+              },
+              "children": [
+                {
+                  "type": "flex",
+                  "direction": "column",
+                  "style": {
+                    "gap": "0.75rem",
+                    "background": "#fff",
+                    "padding": "2rem",
+                    "borderRadius": "1rem",
+                    "boxShadow": "0 10px 40px rgba(26,45,90,0.08)",
+                    "css": "flex: 1 1 280px;"
+                  },
+                  "children": [
+                    {
+                      "type": "heading",
+                      "level": 3,
+                      "text": "Compliance",
+                      "style": {
+                        "fontSize": "1.5rem",
+                        "fontWeight": "600",
+                        "color": "{colors.primary}"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "Stay audit-ready with policies that fit your state.",
+                      "style": {
+                        "color": "{colors.muted}"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "flex",
+                  "direction": "column",
+                  "style": {
+                    "gap": "0.75rem",
+                    "background": "#fff",
+                    "padding": "2rem",
+                    "borderRadius": "1rem",
+                    "boxShadow": "0 10px 40px rgba(26,45,90,0.08)",
+                    "css": "flex: 1 1 280px;"
+                  },
+                  "children": [
+                    {
+                      "type": "heading",
+                      "level": 3,
+                      "text": "Hiring",
+                      "style": {
+                        "fontSize": "1.5rem",
+                        "fontWeight": "600",
+                        "color": "{colors.primary}"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "Attract and onboard the right people, faster.",
+                      "style": {
+                        "color": "{colors.muted}"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "flex",
+                  "direction": "column",
+                  "style": {
+                    "gap": "0.75rem",
+                    "background": "#fff",
+                    "padding": "2rem",
+                    "borderRadius": "1rem",
+                    "boxShadow": "0 10px 40px rgba(26,45,90,0.08)",
+                    "css": "flex: 1 1 280px;"
+                  },
+                  "children": [
+                    {
+                      "type": "heading",
+                      "level": 3,
+                      "text": "Culture",
+                      "style": {
+                        "fontSize": "1.5rem",
+                        "fontWeight": "600",
+                        "color": "{colors.primary}"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "Build a workplace people don't want to leave.",
+                      "style": {
+                        "color": "{colors.muted}"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "title": "CTA",
+      "style": {
+        "background": "{colors.primary}",
+        "padding": {
+          "top": "4rem",
+          "bottom": "4rem"
+        }
+      },
+      "children": [
+        {
+          "type": "flex",
+          "direction": "column",
+          "style": {
+            "gap": "1.5rem",
+            "alignItems": "center",
+            "maxWidth": "800px",
+            "width": "100%",
+            "margin": "0 auto",
+            "textAlign": "center"
+          },
+          "children": [
+            {
+              "type": "heading",
+              "level": 2,
+              "text": "Ready to simplify HR?",
+              "style": {
+                "fontSize": "2.25rem",
+                "fontWeight": "700",
+                "color": "#fff"
+              }
+            },
+            {
+              "type": "button",
+              "text": "Get Started",
+              "style": {
+                "color": "{colors.primary}",
+                "background": "#fff",
+                "fontWeight": "700",
+                "padding": {
+                  "top": "1rem",
+                  "right": "2.5rem",
+                  "bottom": "1rem",
+                  "left": "2.5rem"
+                },
+                "borderRadius": "{radius.md}"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "title": "Contact",
+      "style": {
+        "background": "{colors.bg}",
+        "padding": {
+          "top": "4rem",
+          "bottom": "4rem"
+        }
+      },
+      "children": [
+        {
+          "type": "form",
+          "name": "Contact Form",
+          "email": {
+            "to": "hello@acmehr.com",
+            "subject": "New enquiry"
+          },
+          "style": {
+            "gap": "1rem",
+            "maxWidth": "560px",
+            "width": "100%",
+            "margin": "0 auto"
+          },
+          "children": [
+            {
+              "type": "label",
+              "text": "Full Name",
+              "for": "name"
+            },
+            {
+              "type": "input",
+              "inputType": "text",
+              "placeholder": "Jane Doe",
+              "required": true,
+              "cssId": "name"
+            },
+            {
+              "type": "label",
+              "text": "Email",
+              "for": "email"
+            },
+            {
+              "type": "input",
+              "inputType": "email",
+              "placeholder": "you@example.com",
+              "required": true,
+              "cssId": "email"
+            },
+            {
+              "type": "submit",
+              "text": "Send Message",
+              "style": {
+                "color": "#fff",
+                "background": "{colors.accent}",
+                "fontWeight": "700",
+                "padding": {
+                  "top": "0.875rem",
+                  "right": "2rem",
+                  "bottom": "0.875rem",
+                  "left": "2rem"
+                },
+                "borderRadius": "{radius.md}"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

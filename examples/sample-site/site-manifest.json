@@ -1,0 +1,23 @@
+{
+  "title": "Acme Co",
+  "pages": [
+    {
+      "title": "Home",
+      "file": "home.json",
+      "sections": 5,
+      "elements": 45
+    },
+    {
+      "title": "Services",
+      "file": "services.json",
+      "sections": 4,
+      "elements": 34
+    },
+    {
+      "title": "Contact",
+      "file": "contact.json",
+      "sections": 3,
+      "elements": 30
+    }
+  ]
+}

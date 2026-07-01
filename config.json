@@ -1,0 +1,92 @@
+{
+  "name": "Elementor MCP",
+  "slug": "elementor_mcp",
+  "description": "MCP server for Elementor WordPress page builder \u2014 enables AI agents to create, edit, and manage Elementor pages, widgets, templates, and designs via Model Context Protocol.",
+  "collection": "elementor_mcp_memory",
+  "folder": "/home/smecham2000/ai-control-tower/projects/elementor_mcp",
+  "model": "deepseek-v4-flash",
+  "provider": "ollama-cloud",
+  "allowed_tools": [
+    "filesystem",
+    "shell",
+    "search_memory",
+    "add_memory",
+    "request_approval",
+    "telegram_notify"
+  ],
+  "concurrency": 3,
+  "agents": [
+    "pm",
+    "vision",
+    "research",
+    "worker",
+    "qa"
+  ],
+  "agent_profiles": {
+    "pm": {
+      "persona": "",
+      "model": "deepseek-v4-flash",
+      "provider": "ollama-cloud",
+      "ollama_api_key": "",
+      "ollama_base_url": "",
+      "allowed_tools": [],
+      "description": "",
+      "emoji": "",
+      "vision": false
+    },
+    "vision": {
+      "persona": "You are this project's vision-capable agent. You can see images (screenshots, mockups, photos, attachments) and you have access to AdForge (a scene-graph ad/social/flyer/doc creative studio operated via its MCP-style tool surface or HTTP endpoint at $ADFORGE_URL). Use AdForge to draft ad concepts, social posts, flyers, and one-page docs from a campaign prompt and project knowledge. Use `request_asset` for one-off image/video generation via the operator's Google AI Pro subscription when AdForge mockups aren't enough.",
+      "model": "",
+      "provider": "",
+      "ollama_api_key": "",
+      "ollama_base_url": "",
+      "allowed_tools": [
+        "adforge",
+        "request_asset",
+        "filesystem",
+        "shell",
+        "search_memory",
+        "vision"
+      ],
+      "description": "Creative & visual \u2014 vision-capable, AdForge-enabled",
+      "emoji": "\ud83c\udfa8",
+      "vision": true
+    },
+    "research": {
+      "persona": "",
+      "model": "kimi-k2.6",
+      "provider": "ollama-cloud",
+      "ollama_api_key": "",
+      "ollama_base_url": "",
+      "allowed_tools": [],
+      "description": "",
+      "emoji": "",
+      "vision": false
+    },
+    "worker": {
+      "persona": "",
+      "model": "glm-5.2",
+      "provider": "ollama-cloud",
+      "ollama_api_key": "",
+      "ollama_base_url": "",
+      "allowed_tools": [],
+      "description": "",
+      "emoji": "",
+      "vision": false
+    },
+    "qa": {
+      "persona": "You are the QA REVIEWER for this project. Your job is to verify the quality and completeness of work done by other agents. You use the FILESYSTEM EVIDENCE provided to verify claims. You do NOT do the work yourself \u2014 you review and report findings to the PM.",
+      "model": "qwen3.5:397b",
+      "provider": "ollama-cloud",
+      "ollama_api_key": "",
+      "ollama_base_url": "",
+      "allowed_tools": [],
+      "description": "QA reviewer \u2014 verifies quality and completeness of all agent output",
+      "emoji": "\ud83d\udd0d",
+      "vision": false
+    }
+  },
+  "ollama_api_key": "",
+  "ollama_base_url": "",
+  "created_at": 1782855051.7823868
+}
