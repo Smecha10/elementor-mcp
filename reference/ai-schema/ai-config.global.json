@@ -1,0 +1,162 @@
+{
+  "version": "1.0.0",
+  "description": "Global configuration for AI assistants generating Elementor JSON templates.",
+  "defaultMode": "free",
+  "layout": {
+    "maxWidth": 1920,
+    "maxHeight": 1080,
+    "mobileFirst": true,
+    "useElementorDefaultBreakpoints": true
+  },
+  "textEditorPolicy": {
+    "allowed": true,
+    "allowInlineStyles": false,
+    "description": "Text Editor widget may be used for body copy, but no inline styling is allowed in its HTML content."
+  },
+  "modes": {
+    "free": {
+      "description": "Elementor Core only (no Pro features).",
+      "allowedWidgetGroups": [
+        "basic"
+      ]
+    },
+    "pro": {
+      "description": "Elementor Pro is active.",
+      "allowedWidgetGroups": [
+        "basic",
+        "pro",
+        "theme",
+        "woocommerce"
+      ]
+    }
+  },
+  "widgetGroups": {
+    "basic": {
+      "description": "Widgets available in Elementor Free/Core.",
+      "widgets": [
+        "inner-section",
+        "container",
+        "columns",
+        "heading",
+        "image",
+        "text-editor",
+        "video",
+        "button",
+        "star-rating",
+        "divider",
+        "google-maps",
+        "icon",
+        "image-box",
+        "icon-box",
+        "basic-gallery",
+        "image-carousel",
+        "icon-list",
+        "counter",
+        "spacer",
+        "testimonial",
+        "tabs",
+        "accordion",
+        "toggle",
+        "social-icons",
+        "progress-bar",
+        "soundcloud",
+        "shortcode",
+        "html",
+        "menu-anchor",
+        "alert",
+        "sidebar",
+        "text-path",
+        "link-in-bio"
+      ]
+    },
+    "pro": {
+      "description": "Pro-only widgets (require Elementor Pro).",
+      "widgets": [
+        "posts",
+        "portfolio",
+        "slides",
+        "form",
+        "login",
+        "share-buttons",
+        "nav-menu",
+        "animated-headline",
+        "price-table",
+        "price-list",
+        "gallery",
+        "flip-box",
+        "call-to-action",
+        "media-carousel",
+        "testimonial-carousel",
+        "nested-carousel",
+        "loop-carousel",
+        "table-of-contents",
+        "countdown",
+        "facebook-page",
+        "blockquote",
+        "template",
+        "reviews",
+        "facebook-button",
+        "facebook-embed",
+        "facebook-comments",
+        "paypal-button",
+        "lottie",
+        "code-highlight",
+        "video-playlist",
+        "hotspot",
+        "progress-tracker",
+        "stripe-button",
+        "mega-menu",
+        "off-canvas"
+      ]
+    },
+    "theme": {
+      "description": "Theme Builder widgets (require Elementor Pro).",
+      "widgets": [
+        "post-title",
+        "post-excerpt",
+        "post-content",
+        "featured-image",
+        "author-box",
+        "post-comments",
+        "post-navigation",
+        "post-info",
+        "site-logo",
+        "site-title",
+        "page-title",
+        "search-bar",
+        "breadcrumbs",
+        "sitemap",
+        "loop-grid"
+      ]
+    },
+    "woocommerce": {
+      "description": "WooCommerce-related widgets (require Elementor Pro and WooCommerce).",
+      "widgets": [
+        "product-breadcrumbs",
+        "product-title",
+        "product-images",
+        "product-price",
+        "add-to-cart",
+        "product-rating",
+        "product-stock",
+        "product-meta",
+        "product-content",
+        "short-description",
+        "product-data-tabs",
+        "additional-information",
+        "product-related",
+        "upsells",
+        "products",
+        "custom-add-to-cart",
+        "woocommerce-pages",
+        "product-categories",
+        "menu-cart",
+        "cart",
+        "checkout",
+        "my-account",
+        "purchase-summary",
+        "woocommerce-notices"
+      ]
+    }
+  }
+}
