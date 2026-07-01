@@ -90,11 +90,13 @@ hand-building every node. Use a `template` node anywhere in a tree:
     "image": "https://example.com/hero.jpg" } }
 ```
 
-Available: `hero`, `hero-split`, `feature-grid`, `feature-zigzag`, `bento`,
+Available: `hero`, `hero-split`, `hero-video`, `feature-grid`, `feature-zigzag`, `bento`,
 `stats`, `logos`, `steps`, `cta-band`, `testimonials`, `pricing`, `faq`,
-`contact`, `navbar`, `footer` (see `list_templates` / `get_template`). The
-asymmetric/zig-zag/bento archetypes exist specifically to avoid the cookie-cutter
-AI-site look — mix them per client.
+`contact`, `navbar`, `footer`, `portfolio-grid`, `team-section`, `timeline`,
+`service-cards`, `image-carousel`, `social-strip`, `countdown`, `blog-grid`,
+`error-404`, `coming-soon`, `map-section` (see `list_templates` / `get_template`).
+The asymmetric/zig-zag/bento archetypes exist specifically to avoid the cookie-cutter
+AI-site look — mix them per client. 27 templates total.
 
 **`build_site`** compiles a whole site at once — every page shares the theme and
 an optional `header`/`footer` (e.g. a navbar and footer template), and each page

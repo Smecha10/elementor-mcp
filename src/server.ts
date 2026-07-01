@@ -66,7 +66,7 @@ function coerceObject<T>(v: T | string): T {
 
 const server = new McpServer({
   name: "elementor-mcp",
-  version: "0.4.0",
+  version: "0.5.0",
 });
 
 // ---------------------------------------------------------------------------
@@ -80,11 +80,18 @@ server.registerTool("list_widgets", {
       .enum(["layout", "content", "media", "form", "interactive", "dynamic", "special"] as const)
       .optional()
       .describe("Filter to a single category."),
+    offset: z.number().optional().describe("Skip N results (pagination)."),
+    limit: z.number().optional().describe("Return at most N results."),
   },
-}, async ({ category }) => {
-  const list = category ? WIDGETS.filter((w) => w.category === category) : WIDGETS;
+}, async ({ category, offset, limit }) => {
+  const all = category ? WIDGETS.filter((w) => w.category === category) : WIDGETS;
+  const total = all.length;
+  const off = offset ?? 0;
+  const lim = limit ?? total;
+  const list = all.slice(off, off + lim);
   const lines = list.map((w) => `- ${w.type}${w.aliases?.length ? ` (aka ${w.aliases.join(", ")})` : ""} → ${w.maps_to} [${w.category}]\n    ${w.description}`);
-  return ok(`Available blueprint node types:\n\n${lines.join("\n")}`);
+  const rangeEnd = Math.min(off + list.length, total);
+  return ok(`Showing ${off + (list.length ? 1 : 0)}-${rangeEnd} of ${total} widgets\n\n${lines.join("\n")}`);
 });
 
 // ---------------------------------------------------------------------------
@@ -369,10 +376,18 @@ server.registerTool("generate_seo", {
 server.registerTool("list_templates", {
   title: "List section templates",
   description: "List ready-made, theme-aware section templates (hero, feature-grid, cta-band, testimonials, pricing, faq, contact, navbar, footer). Use them in a blueprint via a node: { type: \"template\", template: \"<name>\", params: {…} }.",
-  inputSchema: {},
-}, async () => {
-  const lines = TEMPLATE_INFO.map((t) => `- ${t.name}: ${t.description}\n    params: ${t.params}`);
-  return ok(`Section templates (use as { type: "template", template, params }):\n\n${lines.join("\n")}`);
+  inputSchema: {
+    offset: z.number().optional().describe("Skip N results (pagination)."),
+    limit: z.number().optional().describe("Return at most N results."),
+  },
+}, async ({ offset, limit }) => {
+  const total = TEMPLATE_INFO.length;
+  const off = offset ?? 0;
+  const lim = limit ?? total;
+  const list = TEMPLATE_INFO.slice(off, off + lim);
+  const lines = list.map((t) => `- ${t.name}: ${t.description}\n    params: ${t.params}`);
+  const rangeEnd = Math.min(off + list.length, total);
+  return ok(`Showing ${off + (list.length ? 1 : 0)}-${rangeEnd} of ${total} templates\n\nSection templates (use as { type: "template", template, params }):\n\n${lines.join("\n")}`);
 });
 
 // ---------------------------------------------------------------------------
@@ -393,9 +408,9 @@ server.registerTool("get_template", {
 // ---------------------------------------------------------------------------
 server.registerTool("validate_blueprint", {
   title: "Validate blueprint",
-  description: "Compile a blueprint in-memory without writing a file. Returns the element count and any errors so you can fix issues before building. Supports keyframes (CSS @keyframes animations) and globals (named widget definitions for reuse).",
+  description: "Compile a blueprint in-memory without writing a file. Returns the element count and any errors so you can fix issues before building. Supports keyframes (CSS @keyframes animations) and globals (named widget definitions for reuse). Set format: \"classic\" for flat settings output (recommended for maximum import compatibility) or format: \"atomic\" (default, v4 $$type-wrapped widgets).",
   inputSchema: {
-    blueprint: z.any().describe("The blueprint object: { title?, theme?, tree: [...], type?, popup?, cssVars?, conditions?, keyframes?, globals? }."),
+    blueprint: z.any().describe("The blueprint object: { title?, theme?, tree: [...], type?, format? (\"atomic\"|\"classic\"), popup?, cssVars?, conditions?, keyframes?, globals? }."),
   },
 }, async ({ blueprint }) => {
   try {
@@ -417,15 +432,16 @@ server.registerTool("validate_blueprint", {
 // ---------------------------------------------------------------------------
 server.registerTool("build_page", {
   title: "Build Elementor page",
-  description: "Compile a blueprint into import-ready Elementor v4 JSON and write it to a file. The file can be imported in Elementor (Site Settings → Import/Export, or paste into the page template import). Supports popup type with triggers/timing via the `popup` field, Theme Builder conditions via `conditions`, dynamic tags via `dynamic` on nodes, CSS custom properties via `cssVars`, native background/box-shadow props in style, @keyframes CSS animations via `keyframes`, and reusable widget definitions via `globals`.",
+  description: "Compile a blueprint into import-ready Elementor JSON and write it to a file. The file can be imported in Elementor (Site Settings → Import/Export, or paste into the page template import). Set format: \"classic\" for flat settings output (recommended for maximum import compatibility with all Elementor versions) or format: \"atomic\" (default, v4 $$type-wrapped widgets). Supports popup type with triggers/timing via the `popup` field, Theme Builder conditions via `conditions`, dynamic tags via `dynamic` on nodes, CSS custom properties via `cssVars`, native background/box-shadow props in style, @keyframes CSS animations via `keyframes`, and reusable widget definitions via `globals`.",
   inputSchema: {
-    blueprint: z.any().describe("The blueprint object: { title?, fileName?, theme?, tree: [...], type?, popup?, cssVars?, conditions?, keyframes?, globals? }."),
+    blueprint: z.any().describe("The blueprint object: { title?, fileName?, theme?, tree: [...], type?, format? (\"atomic\"|\"classic\"), popup?, cssVars?, conditions?, keyframes?, globals? }."),
     outputDir: z
       .string()
       .optional()
       .describe("Directory to write into. Defaults to $ELEMENTOR_MCP_OUT or ./output."),
+    dryRun: z.boolean().optional().describe("Validate and compile without writing files."),
   },
-}, async ({ blueprint, outputDir }) => {
+}, async ({ blueprint, outputDir, dryRun }) => {
   let doc: CompiledDocument;
   let bp: Blueprint;
   try {
@@ -434,12 +450,16 @@ server.registerTool("build_page", {
   } catch (e: unknown) {
     return fail(`Build failed: ${(e as Error).message}`);
   }
+  const count = countNodes(doc.content);
+  if (dryRun) {
+    const typeLine = doc.type !== "page" ? ` • type: ${doc.type}` : "";
+    return ok(`dryRun OK — no files written.\nTitle: "${doc.title}"${typeLine} • sections: ${doc.content.length} • elements: ${count}`);
+  }
   const dir = outputDir || defaultOutputDir();
   if (!existsSync(dir)) await mkdir(dir, { recursive: true });
   const name = slug(bp.fileName || doc.title);
   const file = path.join(dir, `${name}.json`);
   await writeFile(file, JSON.stringify(doc), "utf-8");
-  const count = countNodes(doc.content);
   const seoRes = await writeSeoSidecar(dir, name, doc.title, bp.seo);
   const seoLine = seoRes.written
     ? `\nSEO sidecar: ${name}.seo.json${seoRes.warnings.length ? ` (notes: ${seoRes.warnings.join(" ")})` : ""}`
@@ -502,14 +522,15 @@ server.registerTool("build_popup", {
 // ---------------------------------------------------------------------------
 server.registerTool("build_site", {
   title: "Build a multi-page site",
-  description: "Compile a whole site to import-ready Elementor JSON: one file per page, all sharing a theme and an optional header/footer (e.g. navbar/footer templates). Supports site-level `globals` for reusable widget definitions across all pages. Writes a site-manifest.json alongside the pages.",
+  description: "Compile a whole site to import-ready Elementor JSON: one file per page, all sharing a theme and an optional header/footer (e.g. navbar/footer templates). Supports site-level `globals` for reusable widget definitions across all pages. Set format: \"classic\" at site level for flat settings output (recommended for maximum import compatibility), or per-page format to override. Writes a site-manifest.json alongside the pages.",
   inputSchema: {
     site: z
       .any()
-      .describe("The site: { title?, theme?, header?: nodes[], footer?: nodes[], pages: [{ title, fileName?, theme?, tree: [...] }], globals? }."),
+      .describe("The site: { title?, theme?, format? (\"atomic\"|\"classic\"), header?: nodes[], footer?: nodes[], pages: [{ title, fileName?, theme?, format?, tree: [...] }], globals? }."),
     outputDir: z.string().optional().describe("Directory to write into. Defaults to $ELEMENTOR_MCP_OUT or ./output."),
+    dryRun: z.boolean().optional().describe("Validate and compile without writing files."),
   },
-}, async ({ site, outputDir }) => {
+}, async ({ site, outputDir, dryRun }) => {
   let s: Record<string, unknown>;
   try {
     s = coerceObject(site) as Record<string, unknown>;
@@ -524,6 +545,10 @@ server.registerTool("build_site", {
     compiled = compileSite(s as any);
   } catch (e: unknown) {
     return fail(`Build failed: ${(e as Error).message}`);
+  }
+  if (dryRun) {
+    const summaries = compiled.map((p) => `  • ${p.title} — sections: ${p.document.content.length}, elements: ${countNodes(p.document.content)}`);
+    return ok(`dryRun OK — no files written.\n${compiled.length} page(s) compiled:\n${summaries.join("\n")}`);
   }
   const dir = outputDir || defaultOutputDir();
   if (!existsSync(dir)) await mkdir(dir, { recursive: true });
@@ -620,6 +645,159 @@ function countNodes(nodes: Array<{ elements?: unknown }>): number {
   }
   return n;
 }
+
+// ---------------------------------------------------------------------------
+// Prompt templates — guided design workflows
+// ---------------------------------------------------------------------------
+server.registerPrompt("design-website", {
+  description: "Full website design workflow: intake → theme → build → SEO",
+  argsSchema: {
+    company: z.string().describe("Company name."),
+    industry: z.string().describe("Industry or niche."),
+    brandColor: z.string().describe("Primary brand color as hex, e.g. '#1A2D5A'."),
+    personality: z.string().describe("Design personality: modern, bold, elegant, playful, minimal, warm, techy, classic."),
+  },
+}, ({ company, industry, brandColor, personality }) => {
+  return {
+    messages: [{
+      role: "user" as const,
+      content: {
+        type: "text" as const,
+        text: [
+          `# Full Website Design Workflow for ${company}`,
+          ``,
+          `## Step 1 — Intake`,
+          `Call get_intake_brief (format: "json") to get the discovery questionnaire.`,
+          `Fill it with: company="${company}", industry="${industry}", brandColor="${brandColor}", personality="${personality}".`,
+          ``,
+          `## Step 2 — Generate Theme`,
+          `Call generate_theme with brandColor="${brandColor}", personality="${personality}", industry="${industry}".`,
+          `Save the returned theme object — you'll pass it into every blueprint.`,
+          ``,
+          `## Step 3 — Design Pages`,
+          `Use list_templates to see available section templates (hero, feature-grid, cta-band, testimonials, pricing, faq, contact, navbar, footer, etc.).`,
+          `Build a multi-page site with build_site:`,
+          `- header: navbar template (brand: "${company}")`,
+          `- footer: footer template`,
+          `- pages: Home, About, Services, Contact (adapt to ${industry} industry)`,
+          `- theme: (the generated theme from Step 2)`,
+          `- format: "classic" for maximum import compatibility`,
+          `Use list_widgets and get_widget_schema to discover available widgets.`,
+          ``,
+          `## Step 4 — SEO`,
+          `For each page, call generate_seo with the page title, a meta description, and business info for ${company}.`,
+          `Apply the SEO sidecar at the WordPress/SEO-plugin level.`,
+          ``,
+          `## Design Guidelines`,
+          `- Follow the design playbook: call get_design_playbook and read it before building.`,
+          `- Use motion sparingly: entrance animations on hero, hover on CTAs.`,
+          `- Ensure WCAG contrast (the theme generator checks this automatically).`,
+          `- Use {colors.primary}, {colors.accent}, {fonts.heading} tokens from the theme.`,
+          `- Keep copy specific to ${company} in ${industry} — avoid generic filler.`,
+        ].join("\n"),
+      },
+    }],
+  };
+});
+
+server.registerPrompt("design-landing-page", {
+  description: "Single landing page design workflow",
+  argsSchema: {
+    company: z.string().describe("Company or product name."),
+    goal: z.string().describe("Primary conversion goal (e.g. 'sign up', 'book a demo', 'buy now')."),
+    brandColor: z.string().describe("Primary brand color as hex."),
+  },
+}, ({ company, goal, brandColor }) => {
+  return {
+    messages: [{
+      role: "user" as const,
+      content: {
+        type: "text" as const,
+        text: [
+          `# Landing Page Design Workflow for ${company}`,
+          ``,
+          `## Goal: ${goal}`,
+          ``,
+          `## Step 1 — Generate Theme`,
+          `Call generate_theme with brandColor="${brandColor}". Pick a personality that fits the goal:`,
+          `- "bold" for action-oriented CTAs`,
+          `- "elegant" for luxury/premium`,
+          `- "modern" for SaaS/tech`,
+          `- "playful" for consumer/fun`,
+          ``,
+          `## Step 2 — Build the Landing Page`,
+          `Call build_page with a blueprint using these section templates:`,
+          `1. Hero — headline + subhead + CTA button targeting "${goal}"`,
+          `2. Feature grid — 3 key benefits (use feature-grid template)`,
+          `3. Social proof — testimonials (testimonials template)`,
+          `4. CTA band — final conversion push (cta-band template)`,
+          `Set format: "classic" for maximum compatibility.`,
+          ``,
+          `## Step 3 — SEO`,
+          `Call generate_seo with a compelling meta title and description for the landing page.`,
+          ``,
+          `## Tips`,
+          `- One CTA per section; the primary CTA targets "${goal}".`,
+          `- Keep the hero above the fold: headline, subhead, button only.`,
+          `- Use motion: entrance fadeInUp on hero, hover grow on buttons.`,
+          `- Reference theme tokens like {colors.primary} and {colors.accent}.`,
+        ].join("\n"),
+      },
+    }],
+  };
+});
+
+server.registerPrompt("design-popup", {
+  description: "Popup design workflow with triggers and timing",
+  argsSchema: {
+    goal: z.string().describe("Popup goal (e.g. 'email capture', 'announcement', 'exit discount')."),
+    trigger: z.string().describe("When to show: 'page_load', 'scrolling', 'click', 'exit_intent'."),
+  },
+}, ({ goal, trigger }) => {
+  return {
+    messages: [{
+      role: "user" as const,
+      content: {
+        type: "text" as const,
+        text: [
+          `# Popup Design Workflow`,
+          ``,
+          `## Goal: ${goal}`,
+          `## Trigger: ${trigger}`,
+          ``,
+          `## Step 1 — Design the Popup Content`,
+          `Build a compact, high-converting popup with build_popup:`,
+          `- title: descriptive name for the popup in Elementor`,
+          `- tree: a single section with:`,
+          `  - A bold headline (e.g. "Get 10% Off" or "Join Our List")`,
+          `  - A short subhead (1 line, max 2)`,
+          `  - An input field (email) + submit button`,
+          `  - Optional: a dismiss/close icon`,
+          `- triggers: [{ type: "${trigger}", settings: {...} }]`,
+          `  - page_load: { delay: 3 } (seconds)`,
+          `  - scrolling: { offset: 25 } (% of page)`,
+          `  - click: { selector: ".my-trigger" }`,
+          `  - exit_intent: {}`,
+          ``,
+          `## Step 2 — Add Timing Rules`,
+          `Set timing to avoid being annoying:`,
+          `- times: { count: 1, period: "session" } — show once per session`,
+          `- days: { days: 7 } — hide for 7 days after dismissal`,
+          ``,
+          `## Step 3 — Entrance/Exit Animations`,
+          `- entranceAnimation: "slideInDown" or "fadeIn"`,
+          `- exitAnimation: "fadeOut" or "slideOutUp"`,
+          ``,
+          `## Tips for ${goal}`,
+          `- Email capture: offer a lead magnet (guide, discount, free trial)`,
+          `- Announcement: keep it to 2 lines max, single CTA`,
+          `- Exit discount: use exit_intent trigger, offer a clear coupon code`,
+          `- Always include a visible close button — forced popups hurt UX`,
+        ].join("\n"),
+      },
+    }],
+  };
+});
 
 // ---------------------------------------------------------------------------
 // boot

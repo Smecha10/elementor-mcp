@@ -32,6 +32,7 @@ import { WIDGET_BY_TYPE, WidgetInfo } from "./widgets.js";
 import { expandTemplates } from "./templates.js";
 import { compileMotion, MotionSpec } from "./motion.js";
 import { KeyframeSpec } from "./types.js";
+import { compileBlueprintClassic } from "./classic-compiler.js";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -115,6 +116,8 @@ export interface Blueprint {
   tree: BlueprintNode[];
   type?: string; // "page" | "header" | "footer" | "single" | "archive" | "popup"
   seo?: Record<string, unknown>;
+  // Output format: "atomic" (default, $$type-wrapped v4 widgets) or "classic" (flat settings, container elType)
+  format?: "atomic" | "classic";
   // Popup settings (when type === "popup")
   popup?: PopupSettings;
   // Theme Builder conditions (for header/footer/single/archive types)
@@ -151,6 +154,8 @@ export interface PageBlueprint {
   theme?: Record<string, unknown>;
   tree: BlueprintNode[];
   seo?: Record<string, unknown>;
+  // Output format override (overrides site-level format)
+  format?: "atomic" | "classic";
   // Page-level global widget definitions (merged with site-level globals)
   globals?: Record<string, BlueprintNode>;
 }
@@ -162,6 +167,8 @@ export interface SiteBlueprint {
   footer?: BlueprintNode[];
   pages: PageBlueprint[];
   seo?: Record<string, unknown>;
+  // Site-level output format default (pages can override via format)
+  format?: "atomic" | "classic";
   // Site-level global widget definitions, merged into each page's globals
   globals?: Record<string, BlueprintNode>;
 }
@@ -871,12 +878,19 @@ export function compileSite(site: SiteBlueprint): CompiledPage[] {
     const userTheme = deepMerge(site.theme ?? {}, page.theme);
     // Merge site-level globals with page-level globals (page wins on conflicts)
     const globals = { ...(site.globals ?? {}), ...(page.globals ?? {}) };
-    const document = compileBlueprint({ title: page.title, theme: userTheme, tree, globals });
+    // Page-level format overrides site-level format
+    const format = page.format ?? site.format;
+    const document = compileBlueprint({ title: page.title, theme: userTheme, tree, globals, format });
     return { title: page.title, fileNameHint: page.fileName || page.title, document };
   });
 }
 
 export function compileBlueprint(blueprint: Blueprint): CompiledDocument {
+  // Classic format: use the parallel classic compiler path (flat settings, container elType)
+  if (blueprint.format === "classic") {
+    return compileBlueprintClassic(blueprint);
+  }
+
   // Layer the blueprint theme over the defaults so templates always resolve.
   const theme = resolveTheme(blueprint.theme);
   // Expand any `template` nodes into friendly subtrees, then resolve {tokens}.

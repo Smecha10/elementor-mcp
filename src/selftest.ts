@@ -695,6 +695,214 @@ assert(siteBtn2.settings.text.value.content.value === "Page 2 CTA", "site global
 
 console.log("Global widget tests passed.");
 
+// ----- CLASSIC FORMAT TESTS -----
+
+// 1. Compile a blueprint with format: "classic" and verify the output uses flat settings
+const classicTest = compileBlueprint({
+  title: "ClassicTest",
+  format: "classic",
+  theme: {
+    colors: {
+      primary: "#1A2D5A",
+      accent: "#E8743B",
+      bg: "#FFFFFF",
+      surface: "#F6F8FB",
+      text: "#1A1A1A",
+      muted: "#5B6472",
+    },
+    radius: { md: "1rem", lg: "1.75rem" },
+  },
+  tree: [
+    {
+      type: "section",
+      style: { background: "{colors.surface}", padding: { top: "4rem", bottom: "4rem" } },
+      children: [
+        {
+          type: "flex",
+          direction: "column",
+          style: { gap: "1.5rem" },
+          children: [
+            {
+              type: "heading",
+              level: 1,
+              text: "Hello World",
+              style: { fontSize: "3rem", fontWeight: "700", color: "{colors.primary}", mobile: { fontSize: "2rem" } },
+            },
+            {
+              type: "text",
+              text: "This is a paragraph.",
+              style: { color: "{colors.muted}", fontSize: "1.125rem" },
+            },
+            {
+              type: "button",
+              text: "Click Me",
+              href: "/go",
+              style: { color: "#fff", background: "{colors.accent}", borderRadius: "0.5rem", hover: { background: "#cf5f2b" } },
+            },
+            {
+              type: "image",
+              src: "https://example.com/img.jpg",
+              style: { borderRadius: "1rem" },
+            },
+          ],
+        },
+      ],
+    },
+  ],
+});
+
+// Assert: widget types are classic names (heading, text-editor, button, image)
+const classicSection = classicTest.content[0];
+assert(classicSection.elType === "container", "classic section is container elType");
+const classicFlex = classicSection.elements[0];
+assert(classicFlex.elType === "container", "classic flex is container elType");
+const classicHeading = classicFlex.elements[0];
+assert(classicHeading.elType === "widget", "classic heading elType is widget");
+assert(classicHeading.widgetType === "heading", "classic heading widgetType is heading (not e-heading)");
+const classicText = classicFlex.elements[1];
+assert(classicText.widgetType === "text-editor", "classic text widgetType is text-editor");
+const classicBtn = classicFlex.elements[2];
+assert(classicBtn.widgetType === "button", "classic button widgetType is button");
+const classicImg = classicFlex.elements[3];
+assert(classicImg.widgetType === "image", "classic image widgetType is image");
+
+// Assert: settings are flat (no $$type)
+assert(typeof classicHeading.settings.title === "string", "classic heading title is flat string");
+assert(classicHeading.settings.title === "Hello World", "classic heading title value");
+assert(typeof classicHeading.settings.title_color === "string", "classic heading title_color is flat string");
+assert(classicHeading.settings.title_color === "#1A2D5A", "classic heading title_color resolved token");
+// Typography should be flat
+assert(classicHeading.settings.typography_typography === "custom", "classic heading has typography_typography: custom");
+assert(typeof classicHeading.settings.typography_font_size === "object", "classic heading typography_font_size is object");
+assert((classicHeading.settings.typography_font_size as { unit: string; size: number }).unit === "rem", "classic heading font_size unit is rem");
+assert((classicHeading.settings.typography_font_size as { unit: string; size: number }).size === 3, "classic heading font_size value");
+assert(classicHeading.settings.typography_font_weight === "700", "classic heading font_weight is flat string");
+
+// Assert: elType is "container" for layout
+assert(classicSection.elType === "container", "classic section uses container elType");
+assert(classicFlex.elType === "container", "classic flex uses container elType");
+
+// Assert: responsive uses _tablet/_mobile suffixes
+const headingMobileFontSize = classicHeading.settings.typography_font_size_mobile;
+assert(typeof headingMobileFontSize === "object", "classic heading has typography_font_size_mobile");
+assert((headingMobileFontSize as { unit: string; size: number }).size === 2, "classic heading mobile font_size is 2rem");
+
+// Assert: IDs are 7-char hex
+assert(typeof classicSection.id === "string" && classicSection.id.length === 7, "classic section id is 7-char hex");
+assert(typeof classicHeading.id === "string" && classicHeading.id.length === 7, "classic heading id is 7-char hex");
+assert(/^[0-9a-f]{7}$/.test(classicSection.id), "classic section id matches 7-char hex pattern");
+assert(/^[0-9a-f]{7}$/.test(classicHeading.id), "classic heading id matches 7-char hex pattern");
+
+// Assert: button has flat text and link
+assert(typeof classicBtn.settings.text === "string", "classic button text is flat string");
+assert(classicBtn.settings.text === "Click Me", "classic button text value");
+assert(typeof classicBtn.settings.link === "object", "classic button link is object");
+assert((classicBtn.settings.link as { url: string }).url === "/go", "classic button link url");
+
+// Assert: background is flat settings
+assert(classicSection.settings.background_background === "classic", "classic section background_background is classic");
+assert(classicSection.settings.background_color === "#F6F8FB", "classic section background_color is flat hex");
+
+// Assert: padding is flat dimension object
+const sectionPadding = classicSection.settings.padding as Record<string, unknown>;
+assert(typeof sectionPadding === "object", "classic section padding is object");
+assert(sectionPadding.unit === "px", "classic section padding unit");
+assert(sectionPadding.top === "64", "classic section padding top is 4rem→64px"); // 4rem → but we store as-is string
+
+// Assert: hover uses hover_* prefix
+assert(typeof classicBtn.settings.hover_background_color === "string", "classic button has hover_background_color");
+assert(classicBtn.settings.hover_background_color === "#cf5f2b", "classic button hover_background_color value");
+
+// Assert: no styles object present
+assert((classicHeading as { styles?: unknown }).styles === undefined, "classic heading has no styles object");
+assert((classicSection as { styles?: unknown }).styles === undefined, "classic section has no styles object");
+
+console.log("Classic format tests passed.");
+
+// 2. Test classic format with motion
+const classicMotionTest = compileBlueprint({
+  title: "ClassicMotionTest",
+  format: "classic",
+  tree: [
+    {
+      type: "heading",
+      level: 1,
+      text: "Animated",
+      motion: { entrance: "fadeInUp", entranceDuration: 0.8 },
+    },
+  ],
+});
+const motionHeading = classicMotionTest.content[0];
+assert(motionHeading.settings._animation === "fadeInUp", "classic motion heading has _animation flat setting");
+assert(motionHeading.settings.animation_duration === 0.8, "classic motion heading has animation_duration flat setting");
+
+console.log("Classic motion tests passed.");
+
+// 3. Test classic format with dynamic tags
+const classicDynamicTest = compileBlueprint({
+  title: "ClassicDynamicTest",
+  format: "classic",
+  tree: [
+    {
+      type: "heading",
+      level: 1,
+      text: "Fallback",
+      dynamic: { title: { tag: "post-title" } },
+    },
+  ],
+});
+const classicDynHeading = classicDynamicTest.content[0];
+assert(typeof classicDynHeading.settings.__dynamic__ === "object", "classic dynamic heading has __dynamic__");
+assert(typeof (classicDynHeading.settings.__dynamic__ as Record<string, string>).title === "string", "classic __dynamic__.title is string");
+assert((classicDynHeading.settings.__dynamic__ as Record<string, string>).title.startsWith("[elementor-tag"), "classic __dynamic__.title has elementor-tag syntax");
+
+console.log("Classic dynamic tag tests passed.");
+
+// 4. Test classic format with global widgets
+const classicGlobalsTest = compileBlueprint({
+  title: "ClassicGlobalsTest",
+  format: "classic",
+  globals: {
+    cta: { type: "button", style: { color: "#fff", background: "#E8743B" } },
+  },
+  tree: [
+    { global: "cta", text: "Click Here" },
+  ],
+});
+const gBtn = classicGlobalsTest.content[0];
+assert(gBtn.widgetType === "button", "classic global button widgetType");
+assert(gBtn.settings.text === "Click here" || gBtn.settings.text === "Click Here", "classic global button has overridden text");
+assert(gBtn.settings.background_color === "#E8743B", "classic global button has background_color from global style");
+
+console.log("Classic global widget tests passed.");
+
+// 5. Test classic format with keyframes
+const classicKeyframesTest = compileBlueprint({
+  title: "ClassicKeyframesTest",
+  format: "classic",
+  keyframes: [
+    { name: "fade", steps: { "0%": { opacity: "0" }, "100%": { opacity: "1" } } },
+  ],
+  tree: [{ type: "heading", level: 1, text: "Fade" }],
+});
+assert(typeof classicKeyframesTest.page_settings === "object", "classic keyframes page_settings is object");
+assert(typeof (classicKeyframesTest.page_settings as Record<string, string>).custom_css === "string", "classic keyframes has custom_css");
+assert((classicKeyframesTest.page_settings as Record<string, string>).custom_css.includes("@keyframes fade"), "classic keyframes has @keyframes fade");
+
+console.log("Classic keyframes tests passed.");
+
+// 6. Test classic format with CSS custom properties
+const classicCssVarsTest = compileBlueprint({
+  title: "ClassicCssVarsTest",
+  format: "classic",
+  cssVars: { "brand-color": "#FF0000" },
+  tree: [{ type: "heading", level: 1, text: "Test" }],
+});
+assert(typeof classicCssVarsTest.page_settings === "object", "classic cssVars page_settings is object");
+assert((classicCssVarsTest.page_settings as Record<string, string>).custom_css.includes("--brand-color: #FF0000;"), "classic cssVars includes brand-color");
+
+console.log("Classic CSS vars tests passed.");
+
 // write example output
 const outDir = path.join(ROOT, "examples");
 if (!existsSync(outDir)) await mkdir(outDir, { recursive: true });
