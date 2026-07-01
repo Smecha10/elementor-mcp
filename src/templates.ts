@@ -9,6 +9,22 @@
 
 import { BlueprintNode } from "./compiler.js";
 
+type DesignIntensity = "minimal" | "standard" | "premium";
+
+function motionFor(intensity: DesignIntensity | undefined, base: Record<string, unknown>): Record<string, unknown> | undefined {
+  const level = intensity || "standard";
+  if (level === "minimal") return undefined;
+  if (level === "premium") {
+    // Premium: add scroll-triggered effects on top of standard
+    return {
+      ...base,
+      scroll: base.scroll || { translateY: { direction: "up", speed: 3 } },
+    };
+  }
+  // Standard: just the base motion
+  return Object.keys(base).length ? base : undefined;
+}
+
 // ---------------------------------------------------------------------------
 // Shared building blocks
 // ---------------------------------------------------------------------------
@@ -114,6 +130,47 @@ function linkButton(c: { text: string; href?: string }): BlueprintNode {
 }
 
 // ---------------------------------------------------------------------------
+// Premium style helpers
+// ---------------------------------------------------------------------------
+
+function glassCard(children: BlueprintNode[], opts: { padding?: string; borderRadius?: string } = {}): BlueprintNode {
+  return {
+    type: "section",
+    style: {
+      css: `background: rgba(255,255,255,0.15); backdrop-filter: blur(12px) saturate(180%); -webkit-backdrop-filter: blur(12px) saturate(180%); border: 1px solid rgba(255,255,255,0.25);`,
+      borderRadius: opts.borderRadius || "{radius.lg}",
+      padding: { top: opts.padding || "2rem", right: opts.padding || "2rem", bottom: opts.padding || "2rem", left: opts.padding || "2rem" },
+    },
+    children,
+  };
+}
+
+function gradientText(text: string, colors?: string): BlueprintNode {
+  return {
+    type: "heading",
+    level: 1,
+    text,
+    style: {
+      fontSize: "4rem",
+      fontWeight: "800",
+      css: `background: linear-gradient(135deg, ${colors || "{colors.primary}"}, {colors.accent}); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;`,
+      lineHeight: "1.1",
+      mobile: { fontSize: "2.5rem" },
+    },
+  };
+}
+
+function decorativeBlob(size?: string, color?: string): BlueprintNode {
+  return {
+    type: "section",
+    style: {
+      css: `position: absolute; width: ${size || "300px"}; height: ${size || "300px"}; border-radius: 50%; background: ${color || "{colors.primaryLight}"}; filter: blur(80px); opacity: 0.3; pointer-events: none; z-index: 0;`,
+    },
+    children: [],
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Template parameter types
 // ---------------------------------------------------------------------------
 
@@ -124,23 +181,27 @@ interface HeroParams {
   secondaryCta?: { text: string; href?: string };
   image?: string;
   align?: string;
+  designIntensity?: DesignIntensity;
 }
 
 interface FeatureGridParams {
   heading?: string;
   subheading?: string;
   items?: Array<{ title?: string; text?: string; icon?: string }>;
+  designIntensity?: DesignIntensity;
 }
 
 interface CtaBandParams {
   heading?: string;
   text?: string;
   cta?: { text: string; href?: string };
+  designIntensity?: DesignIntensity;
 }
 
 interface TestimonialsParams {
   heading?: string;
   items?: Array<{ content?: string; name?: string; title?: string; image?: string }>;
+  designIntensity?: DesignIntensity;
 }
 
 interface PricingParams {
@@ -154,11 +215,13 @@ interface PricingParams {
     buttonText?: string;
     ribbon?: string;
   }>;
+  designIntensity?: DesignIntensity;
 }
 
 interface FaqParams {
   heading?: string;
   items?: Array<{ q?: string; a?: string }>;
+  designIntensity?: DesignIntensity;
 }
 
 interface ContactParams {
@@ -167,6 +230,7 @@ interface ContactParams {
   email?: { to: string; subject?: string };
   fields?: Array<{ label: string; name: string; type: string; required?: boolean; placeholder?: string }>;
   submitText?: string;
+  designIntensity?: DesignIntensity;
 }
 
 interface NavbarParams {
@@ -174,11 +238,13 @@ interface NavbarParams {
   brandImage?: string;
   links?: Array<{ text: string; href?: string }>;
   cta?: { text: string; href?: string };
+  designIntensity?: DesignIntensity;
 }
 
 interface FooterParams {
   columns?: Array<{ heading?: string; links?: Array<{ text: string; href?: string }> }>;
   copyright?: string;
+  designIntensity?: DesignIntensity;
 }
 
 interface HeroSplitParams {
@@ -190,6 +256,7 @@ interface HeroSplitParams {
   image?: string;
   imageAlt?: string;
   imageSide?: string;
+  designIntensity?: DesignIntensity;
 }
 
 interface FeatureZigzagParams {
@@ -203,6 +270,7 @@ interface FeatureZigzagParams {
     tag?: string;
     cta?: { text: string; href?: string };
   }>;
+  designIntensity?: DesignIntensity;
 }
 
 interface BentoParams {
@@ -215,23 +283,27 @@ interface BentoParams {
     span?: number;
     highlight?: boolean;
   }>;
+  designIntensity?: DesignIntensity;
 }
 
 interface StatsParams {
   heading?: string;
   onPrimary?: boolean;
   items?: Array<{ value?: string | number; label?: string }>;
+  designIntensity?: DesignIntensity;
 }
 
 interface LogosParams {
   heading?: string;
   logos?: Array<string | { src: string; alt?: string }>;
+  designIntensity?: DesignIntensity;
 }
 
 interface StepsParams {
   eyebrow?: string;
   heading?: string;
   items?: Array<{ number?: number; title?: string; text?: string }>;
+  designIntensity?: DesignIntensity;
 }
 
 interface HeroVideoParams {
@@ -244,6 +316,7 @@ interface HeroVideoParams {
   overlayOpacity?: number;
   primaryCta?: { text: string; href?: string };
   secondaryCta?: { text: string; href?: string };
+  designIntensity?: DesignIntensity;
 }
 
 interface PortfolioGridParams {
@@ -251,17 +324,20 @@ interface PortfolioGridParams {
   items?: Array<{ title?: string; category?: string; image?: string; link?: string }>;
   columns?: number; // 2-4
   gap?: string;
+  designIntensity?: DesignIntensity;
 }
 
 interface TeamSectionParams {
   heading?: string;
   members?: Array<{ name?: string; role?: string; image?: string; bio?: string; social?: Array<{ icon?: string; url?: string }> }>;
   columns?: number;
+  designIntensity?: DesignIntensity;
 }
 
 interface TimelineParams {
   heading?: string;
   items?: Array<{ date?: string; title?: string; description?: string; side?: "left" | "right" }>;
+  designIntensity?: DesignIntensity;
 }
 
 interface ServiceCardsParams {
@@ -269,6 +345,7 @@ interface ServiceCardsParams {
   services?: Array<{ icon?: string; title?: string; description?: string; link?: string }>;
   columns?: number;
   hoverEffect?: "grow" | "float" | "lift";
+  designIntensity?: DesignIntensity;
 }
 
 interface ImageCarouselParams {
@@ -276,24 +353,28 @@ interface ImageCarouselParams {
   images?: string[];
   autoplay?: boolean;
   loop?: boolean;
+  designIntensity?: DesignIntensity;
 }
 
 interface SocialStripParams {
   heading?: string;
   items?: Array<{ icon?: string; url?: string }>;
   align?: string;
+  designIntensity?: DesignIntensity;
 }
 
 interface CountdownParams {
   heading?: string;
   targetDate?: string;
   labels?: string[]; // 4 strings: days/hours/minutes/seconds
+  designIntensity?: DesignIntensity;
 }
 
 interface BlogGridParams {
   heading?: string;
   posts?: Array<{ title?: string; excerpt?: string; image?: string; date?: string; author?: string; link?: string }>;
   columns?: number;
+  designIntensity?: DesignIntensity;
 }
 
 interface Error404Params {
@@ -302,6 +383,7 @@ interface Error404Params {
   ctaText?: string;
   ctaHref?: string;
   image?: string;
+  designIntensity?: DesignIntensity;
 }
 
 interface ComingSoonParams {
@@ -310,6 +392,7 @@ interface ComingSoonParams {
   countdown?: boolean;
   targetDate?: string;
   socialLinks?: Array<{ icon?: string; url?: string }>;
+  designIntensity?: DesignIntensity;
 }
 
 interface MapSectionParams {
@@ -319,6 +402,7 @@ interface MapSectionParams {
   email?: string;
   mapEmbed?: string; // iframe URL
   hours?: string;
+  designIntensity?: DesignIntensity;
 }
 
 // ---------------------------------------------------------------------------
@@ -334,6 +418,7 @@ interface HeroAsymmetricParams {
   image?: string;
   imageAlt?: string;
   imageSide?: "left" | "right";
+  designIntensity?: DesignIntensity;
 }
 
 interface HeroFullscreenParams {
@@ -344,6 +429,7 @@ interface HeroFullscreenParams {
   backgroundImage?: string;
   overlayColor?: string;
   overlayOpacity?: number;
+  designIntensity?: DesignIntensity;
 }
 
 interface BentoGridParams {
@@ -357,6 +443,7 @@ interface BentoGridParams {
     span?: number;
     highlight?: boolean;
   }>;
+  designIntensity?: DesignIntensity;
 }
 
 interface EditorialSplitParams {
@@ -370,6 +457,7 @@ interface EditorialSplitParams {
     text?: string;
     image?: string;
   }>;
+  designIntensity?: DesignIntensity;
 }
 
 interface ShowcaseCarouselParams {
@@ -380,6 +468,7 @@ interface ShowcaseCarouselParams {
     cta?: { text: string; href?: string };
   }>;
   autoplay?: boolean;
+  designIntensity?: DesignIntensity;
 }
 
 interface PricingComparisonParams {
@@ -394,6 +483,7 @@ interface PricingComparisonParams {
     ribbon?: string;
     highlighted?: boolean;
   }>;
+  designIntensity?: DesignIntensity;
 }
 
 // ---------------------------------------------------------------------------
@@ -408,17 +498,17 @@ function hero(p: HeroParams): BlueprintNode {
     level: 1,
     text: p.heading ?? "Headline",
     style: { fontSize: "3rem", fontWeight: "700", color: "{colors.primary}", lineHeight: "1.1", mobile: { fontSize: "2rem" }, ...(centered ? { textAlign: "center" } : {}) },
-    motion: { entrance: "fadeInUp", entranceDelay: 0.2 },
+    motion: motionFor(p.designIntensity, { entrance: "fadeInUp", entranceDelay: 0.2 }),
   };
   const sub: BlueprintNode = {
     type: "text",
     text: p.text ?? "",
     style: { fontSize: "1.125rem", color: "{colors.muted}", maxWidth: "60ch", ...(centered ? { textAlign: "center" } : {}) },
-    motion: { entrance: "fadeInUp", entranceDelay: 0.3 },
+    motion: motionFor(p.designIntensity, { entrance: "fadeInUp", entranceDelay: 0.3 }),
   };
   const ctas: BlueprintNode[] = [];
-  if (p.primaryCta) ctas.push({ ...primaryButton(p.primaryCta), motion: { entrance: "fadeInUp", entranceDelay: 0.4 } });
-  if (p.secondaryCta) ctas.push({ ...ghostButton(p.secondaryCta), motion: { entrance: "fadeInUp", entranceDelay: 0.4 } });
+  if (p.primaryCta) ctas.push({ ...primaryButton(p.primaryCta), motion: motionFor(p.designIntensity, { entrance: "fadeInUp", entranceDelay: 0.4 }) });
+  if (p.secondaryCta) ctas.push({ ...ghostButton(p.secondaryCta), motion: motionFor(p.designIntensity, { entrance: "fadeInUp", entranceDelay: 0.4 }) });
   const ctaRow: BlueprintNode = { type: "flex", direction: "row", style: { gap: "1rem", flexWrap: "wrap", ...(centered ? { justifyContent: "center" } : {}) }, children: ctas };
   const copy: BlueprintNode = {
     type: "flex",
@@ -427,7 +517,7 @@ function hero(p: HeroParams): BlueprintNode {
     children: [heading, ...(p.text ? [sub] : []), ...(ctas.length ? [ctaRow] : [])],
   };
   if (p.image) {
-    const img: BlueprintNode = { type: "image", src: p.image, style: { borderRadius: "{radius.lg}", boxShadow: "{shadow.card}", width: "100%" }, motion: { entrance: "zoomIn", entranceDelay: 0.2 } };
+    const img: BlueprintNode = { type: "image", src: p.image, style: { borderRadius: "{radius.lg}", boxShadow: "{shadow.card}", width: "100%" }, motion: motionFor(p.designIntensity, { entrance: "zoomIn", entranceDelay: 0.2 }) };
     return section([
       {
         type: "flex",
@@ -440,7 +530,7 @@ function hero(p: HeroParams): BlueprintNode {
   return section([container([copy], { alignItems: "center" })], { padding: { top: "5rem", bottom: "5rem" } });
 }
 
-function featureCard(item: { title?: string; text?: string; icon?: string }, index: number = 0): BlueprintNode {
+function featureCard(item: { title?: string; text?: string; icon?: string }, index: number = 0, designIntensity?: DesignIntensity): BlueprintNode {
   const kids: BlueprintNode[] = [];
   if (item.icon) kids.push({ type: "svg", src: item.icon, style: { width: "40px" } });
   kids.push({ type: "heading", level: 3, text: item.title ?? "", style: { fontSize: "1.5rem", fontWeight: "600", color: "{colors.primary}" } });
@@ -450,7 +540,7 @@ function featureCard(item: { title?: string; text?: string; icon?: string }, ind
     direction: "column",
     style: { gap: "0.75rem", background: "{colors.bg}", padding: "2rem", borderRadius: "{radius.md}", boxShadow: "{shadow.card}", css: "flex: 1 1 280px;" },
     children: kids,
-    motion: { entrance: "fadeInUp", entranceDelay: 0.1 * index, hover: "grow" },
+    motion: motionFor(designIntensity, { entrance: "fadeInUp", entranceDelay: 0.1 * index, hover: "grow" }),
   };
 }
 
@@ -458,14 +548,14 @@ function featureGrid(p: FeatureGridParams): BlueprintNode {
   const head: BlueprintNode[] = [];
   if (p.heading) head.push(sectionHeading(p.heading));
   if (p.subheading) head.push({ type: "text", text: p.subheading, style: { color: "{colors.muted}", textAlign: "center", maxWidth: "60ch", margin: "0 auto" } });
-  const grid: BlueprintNode = { type: "flex", direction: "row", style: { gap: "2rem", flexWrap: "wrap", mobile: { flexDirection: "column" } }, children: (p.items ?? []).map((item, i) => featureCard(item, i)) };
+  const grid: BlueprintNode = { type: "flex", direction: "row", style: { gap: "2rem", flexWrap: "wrap", mobile: { flexDirection: "column" } }, children: (p.items ?? []).map((item, i) => featureCard(item, i, p.designIntensity)) };
   return section([container([...head, grid], { gap: "2.5rem" })], { background: "{colors.surface}" });
 }
 
 function ctaBand(p: CtaBandParams): BlueprintNode {
-  const kids: BlueprintNode[] = [{ type: "heading", level: 2, text: p.heading ?? "", style: { fontSize: "2.25rem", fontWeight: "700", color: "{colors.onPrimary}", textAlign: "center" }, motion: { entrance: "fadeInUp", entranceDelay: 0.2 } }];
-  if (p.text) kids.push({ type: "text", text: p.text, style: { color: "{colors.onPrimary}", textAlign: "center", maxWidth: "60ch", css: "opacity: 0.9;" }, motion: { entrance: "fadeInUp", entranceDelay: 0.3 } });
-  if (p.cta) kids.push({ type: "button", text: p.cta.text, href: p.cta.href, style: { color: "{colors.primary}", background: "{colors.bg}", fontWeight: "700", padding: { top: "1rem", right: "2.5rem", bottom: "1rem", left: "2.5rem" }, borderRadius: "{radius.md}" }, motion: { entrance: "fadeInUp", entranceDelay: 0.3 } });
+  const kids: BlueprintNode[] = [{ type: "heading", level: 2, text: p.heading ?? "", style: { fontSize: "2.25rem", fontWeight: "700", color: "{colors.onPrimary}", textAlign: "center" }, motion: motionFor(p.designIntensity, { entrance: "fadeInUp", entranceDelay: 0.2 }) }];
+  if (p.text) kids.push({ type: "text", text: p.text, style: { color: "{colors.onPrimary}", textAlign: "center", maxWidth: "60ch", css: "opacity: 0.9;" }, motion: motionFor(p.designIntensity, { entrance: "fadeInUp", entranceDelay: 0.3 }) });
+  if (p.cta) kids.push({ type: "button", text: p.cta.text, href: p.cta.href, style: { color: "{colors.primary}", background: "{colors.bg}", fontWeight: "700", padding: { top: "1rem", right: "2.5rem", bottom: "1rem", left: "2.5rem" }, borderRadius: "{radius.md}" }, motion: motionFor(p.designIntensity, { entrance: "fadeInUp", entranceDelay: 0.3 }) });
   return section([
     { type: "flex", direction: "column", style: { gap: "1.5rem", alignItems: "center", maxWidth: "800px", width: "100%", margin: "0 auto", padding: { left: "1.5rem", right: "1.5rem" } }, children: kids },
   ], { background: "{colors.primary}" });
@@ -480,7 +570,7 @@ function testimonials(p: TestimonialsParams): BlueprintNode {
     title: it.title ?? "",
     image: { url: it.image ?? "" },
   }));
-  const widget: BlueprintNode = { type: "reviews", props: { slides }, motion: { entrance: "fadeIn", entranceDelay: 0.2 } };
+  const widget: BlueprintNode = { type: "reviews", props: { slides }, motion: motionFor(p.designIntensity, { entrance: "fadeIn", entranceDelay: 0.2 }) };
   return section([container([...head, widget], { gap: "2rem" })]);
 }
 

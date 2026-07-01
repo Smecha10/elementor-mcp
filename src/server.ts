@@ -435,17 +435,24 @@ server.registerTool("build_page", {
   description: "Compile a blueprint into import-ready Elementor JSON and write it to a file. The file can be imported in Elementor (Site Settings → Import/Export, or paste into the page template import). Set format: \"classic\" for flat settings output (recommended for maximum import compatibility with all Elementor versions) or format: \"atomic\" (default, v4 $$type-wrapped widgets). Supports popup type with triggers/timing via the `popup` field, Theme Builder conditions via `conditions`, dynamic tags via `dynamic` on nodes, CSS custom properties via `cssVars`, native background/box-shadow props in style, @keyframes CSS animations via `keyframes`, and reusable widget definitions via `globals`.",
   inputSchema: {
     blueprint: z.any().describe("The blueprint object: { title?, fileName?, theme?, tree: [...], type?, format? (\"atomic\"|\"classic\"), popup?, cssVars?, conditions?, keyframes?, globals? }."),
+    designIntensity: z
+      .enum(["minimal", "standard", "premium"] as const)
+      .optional()
+      .describe("Visual richness: minimal (no motion), standard (tasteful entrance animations), premium (full motion + scroll effects + decorative backgrounds). Default: standard."),
     outputDir: z
       .string()
       .optional()
       .describe("Directory to write into. Defaults to $ELEMENTOR_MCP_OUT or ./output."),
     dryRun: z.boolean().optional().describe("Validate and compile without writing files."),
   },
-}, async ({ blueprint, outputDir, dryRun }) => {
+}, async ({ blueprint, outputDir, dryRun, designIntensity }) => {
   let doc: CompiledDocument;
   let bp: Blueprint;
   try {
     bp = coerceObject(blueprint) as Blueprint;
+    if (designIntensity) {
+      (bp as any).designIntensity = designIntensity;
+    }
     doc = compileBlueprint(bp);
   } catch (e: unknown) {
     return fail(`Build failed: ${(e as Error).message}`);
@@ -527,13 +534,20 @@ server.registerTool("build_site", {
     site: z
       .any()
       .describe("The site: { title?, theme?, format? (\"atomic\"|\"classic\"), header?: nodes[], footer?: nodes[], pages: [{ title, fileName?, theme?, format?, tree: [...] }], globals? }."),
+    designIntensity: z
+      .enum(["minimal", "standard", "premium"] as const)
+      .optional()
+      .describe("Visual richness: minimal (no motion), standard (tasteful entrance animations), premium (full motion + scroll effects + decorative backgrounds). Default: standard."),
     outputDir: z.string().optional().describe("Directory to write into. Defaults to $ELEMENTOR_MCP_OUT or ./output."),
     dryRun: z.boolean().optional().describe("Validate and compile without writing files."),
   },
-}, async ({ site, outputDir, dryRun }) => {
+}, async ({ site, outputDir, dryRun, designIntensity }) => {
   let s: Record<string, unknown>;
   try {
     s = coerceObject(site) as Record<string, unknown>;
+    if (designIntensity) {
+      s.designIntensity = designIntensity;
+    }
   } catch (e: unknown) {
     return fail(`Build failed: ${(e as Error).message}`);
   }

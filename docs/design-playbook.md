@@ -259,3 +259,25 @@ On-page SEO rules the layout must follow:
 - Unique `metaTitle` + `metaDescription` per page; descriptive `slug`.
 - Put site-wide fields (`siteName`, `business`, default `ogImage`) on the
   **site** `seo`; per-page `seo` overrides win.
+
+---
+
+## 12. Design Intensity — control the visual richness
+
+Every template accepts a `designIntensity` parameter with three levels:
+
+- **minimal** — No motion, no decorative effects, clean layout. Best for:
+  accessibility-first sites, content-heavy pages (blogs, documentation),
+  or when the client explicitly wants a simple, fast-loading site.
+
+- **standard** (default) — Tasteful entrance animations (fadeInUp, fadeIn)
+  on key elements with staggered delays. Subtle hover effects on cards
+  and buttons. Professional without being distracting.
+
+- **premium** — Full motion treatment: entrance animations + scroll-triggered
+  parallax effects + hover animations. Decorative backgrounds (gradient
+  meshes, glassmorphism cards). Micro-interactions on interactive elements.
+  Best for: landing pages, agency sites, product showcases, luxury brands.
+
+Set it per-section or per-page via the `designIntensity` field on any
+template call. The compiler handles the rest — no manual motion config needed.
