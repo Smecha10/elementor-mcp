@@ -987,6 +987,271 @@ function mapSection(p: MapSectionParams): BlueprintNode {
 }
 
 // ---------------------------------------------------------------------------
+// Premium template archetypes (6 new)
+// ---------------------------------------------------------------------------
+
+/**
+ * 1. hero-asymmetric — Two-column flex row. Text side (55%) has eyebrow + H1 + text + CTAs.
+ * Image side (45%) has a full-height image with border-radius. Background has a subtle gradient mesh.
+ */
+function heroAsymmetric(p: HeroAsymmetricParams): BlueprintNode {
+  const reverse = p.imageSide === "left";
+  const copyKids: BlueprintNode[] = [];
+  if (p.eyebrow) copyKids.push(eyebrow(p.eyebrow));
+  copyKids.push({
+    type: "heading",
+    level: 1,
+    text: p.heading ?? "Headline",
+    style: { fontSize: "3.25rem", fontWeight: "700", color: "{colors.primary}", lineHeight: "1.05", letterSpacing: "-0.01em", mobile: { fontSize: "2.1rem" } },
+  });
+  if (p.text) copyKids.push({ type: "text", text: p.text, style: { fontSize: "1.15rem", color: "{colors.muted}", lineHeight: "1.6", maxWidth: "52ch" } });
+  const ctas: BlueprintNode[] = [];
+  if (p.primaryCta) ctas.push({ ...primaryButton(p.primaryCta), motion: { entrance: "fadeInUp", entranceDelay: 0.4 } });
+  if (p.secondaryCta) ctas.push({ ...ghostButton(p.secondaryCta), motion: { entrance: "fadeInUp", entranceDelay: 0.45 } });
+  if (ctas.length) copyKids.push({ type: "flex", direction: "row", style: { gap: "1rem", flexWrap: "wrap", marginTop: "0.5rem" }, children: ctas });
+  const copy: BlueprintNode = { type: "flex", direction: "column", style: { gap: "1.25rem", css: "flex: 1 1 55%;" }, children: copyKids, motion: { entrance: "fadeInLeft", entranceDelay: 0.2 } };
+  const media: BlueprintNode = p.image
+    ? { type: "image", src: p.image, alt: p.imageAlt ?? p.heading ?? "", style: { borderRadius: "{radius.lg}", boxShadow: "{shadow.card}", width: "100%", css: "flex: 1 1 45%; height: 100%; object-fit: cover; min-height: 400px;" }, motion: { entrance: "fadeInRight", entranceDelay: 0.3 } }
+    : { type: "section", style: { background: "{colors.surface}", borderRadius: "{radius.lg}", css: "flex: 1 1 45%; min-height: 400px;" }, children: [], motion: { entrance: "fadeInRight", entranceDelay: 0.3 } };
+  return section([
+    {
+      type: "flex",
+      direction: "row",
+      style: { gap: "3.5rem", alignItems: "stretch", maxWidth: "1200px", width: "100%", padding: { left: "1.5rem", right: "1.5rem" }, flexDirection: reverse ? "row-reverse" : "row", mobile: { flexDirection: "column" }, css: "margin: 0 auto; background: linear-gradient(135deg, {colors.bg} 0%, {colors.surface} 100%); border-radius: {radius.lg};" },
+      children: [copy, media],
+    },
+  ], { padding: { top: "5rem", bottom: "5rem" } });
+}
+
+/**
+ * 2. hero-fullscreen — Full viewport height section with gradient mesh or image background.
+ * Centered content: large H1 (4rem, gradient text effect), supporting text, CTA with glassmorphism.
+ */
+function heroFullscreen(p: HeroFullscreenParams): BlueprintNode {
+  const bgCss = p.backgroundType === "image" && p.backgroundImage
+    ? `background: url(${p.backgroundImage}) center/cover no-repeat; position: relative;`
+    : `background: linear-gradient(135deg, {colors.primary} 0%, {colors.accent} 50%, #1a1a2e 100%); position: relative;`;
+  const overlayOpacity = p.overlayOpacity ?? 0.4;
+  const overlayColor = p.overlayColor ?? "#000000";
+  const overlayCss = p.backgroundType === "image"
+    ? `&::before{content:'';position:absolute;inset:0;background:${overlayColor};opacity:${overlayOpacity};z-index:1;}`
+    : "";
+  const heading: BlueprintNode = {
+    type: "heading",
+    level: 1,
+    text: p.heading ?? "Headline",
+    style: { fontSize: "4rem", fontWeight: "700", color: "#FFFFFF", textAlign: "center", lineHeight: "1.05", letterSpacing: "-0.02em", mobile: { fontSize: "2.5rem" }, css: "background: linear-gradient(to right, #fff, rgba(255,255,255,0.7)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;" },
+    motion: { entrance: "fadeInUp", entranceDelay: 0.2 },
+  };
+  const sub: BlueprintNode = p.text ? {
+    type: "text", text: p.text,
+    style: { fontSize: "1.25rem", color: "#FFFFFF", textAlign: "center", maxWidth: "60ch", css: "opacity: 0.9;" },
+    motion: { entrance: "fadeInUp", entranceDelay: 0.3 },
+  } : { type: "text", text: "", style: {} };
+  const ctaBtn: BlueprintNode = p.cta ? {
+    ...primaryButton(p.cta),
+    style: {
+      ...primaryButton(p.cta).style,
+      background: "rgba(255,255,255,0.15)",
+      color: "#FFFFFF",
+      css: "backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.25);",
+      hover: { background: "rgba(255,255,255,0.25)", color: "#FFFFFF" },
+    },
+    motion: { entrance: "fadeInUp", entranceDelay: 0.4 },
+  } : { type: "text", text: "", style: {} };
+  const sectionNode = section([
+    { type: "flex", direction: "column", style: { gap: "1.5rem", alignItems: "center", justifyContent: "center", maxWidth: "800px", width: "100%", padding: { left: "1.5rem", right: "1.5rem" }, css: "position: relative; z-index: 2; min-height: 100vh; margin: 0 auto;" }, children: [heading, ...(p.text ? [sub] : []), ...(p.cta ? [ctaBtn] : [])] },
+  ], { height: "100vh", css: bgCss + overlayCss, padding: { top: "0", bottom: "0" } });
+  sectionNode.motion = { scroll: { translateY: { direction: "up", speed: 6 } } };
+  return sectionNode;
+}
+
+/**
+ * 3. bento-grid — CSS grid-like layout using flex with varying widths.
+ * 1 large card (2x), 2 medium cards (1x), 2 small cards below.
+ */
+function bentoGrid(p: BentoGridParams): BlueprintNode {
+  const head: BlueprintNode[] = [];
+  if (p.eyebrow) head.push(eyebrow(p.eyebrow, true));
+  if (p.heading) head.push(sectionHeading(p.heading));
+  const items = p.items ?? [];
+  const cards = items.map((it, i) => {
+    const wide = (it.span ?? 1) >= 2;
+    const kids: BlueprintNode[] = [];
+    if (it.icon) kids.push({ type: "svg", src: it.icon, style: { width: "40px" } });
+    if (it.image) kids.push({ type: "image", src: it.image, alt: it.title ?? "", style: { width: "100%", css: "height: 160px; object-fit: cover; border-radius: {radius.sm};" } });
+    kids.push({ type: "heading", level: 3, text: it.title ?? "", style: { fontSize: wide ? "1.6rem" : "1.35rem", fontWeight: "600", color: it.highlight ? "{colors.onPrimary}" : "{colors.primary}" } });
+    if (it.text) kids.push({ type: "text", text: it.text, style: { color: it.highlight ? "{colors.onPrimary}" : "{colors.muted}", lineHeight: "1.6", css: it.highlight ? "opacity: 0.9;" : "" } });
+    return {
+      type: "flex",
+      direction: "column",
+      style: {
+        gap: "0.6rem",
+        justifyContent: "flex-end",
+        background: it.highlight ? "{colors.primary}" : i % 2 === 0 ? "{colors.surface}" : "{colors.bg}",
+        padding: "2rem",
+        borderRadius: "{radius.lg}",
+        boxShadow: "{shadow.soft}",
+        css: `flex: ${wide ? "2 1 500px" : "1 1 240px"}; min-height: ${wide ? "280px" : "220px"};`,
+        hover: { css: "transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1);" },
+      },
+      children: kids,
+      motion: { entrance: "fadeInUp", entranceDelay: 0.1 * i, hover: "grow" },
+    };
+  });
+  const grid: BlueprintNode = { type: "flex", direction: "row", style: { gap: "1.25rem", flexWrap: "wrap", alignItems: "stretch", mobile: { flexDirection: "column" } }, children: cards };
+  return section([container([...head, grid], { gap: "2.5rem" })], { background: "{colors.bg}" });
+}
+
+/**
+ * 4. editorial-split — Two-column layout. Left (30%): sticky sidebar with eyebrow, decorative line.
+ * Right (70%): scrollable content with heading, text, optional image.
+ */
+function editorialSplit(p: EditorialSplitParams): BlueprintNode {
+  const leftKids: BlueprintNode[] = [];
+  if (p.eyebrow) leftKids.push(eyebrow(p.eyebrow));
+  leftKids.push({
+    type: "section",
+    style: { css: "width: 40px; height: 3px; background: {colors.accent}; margin: 1rem 0;" },
+    children: [],
+  });
+  leftKids.push({
+    type: "section",
+    style: { css: "width: 12px; height: 12px; border-radius: 50%; background: {colors.accent}; opacity: 0.4;" },
+    children: [],
+  });
+  const leftCol: BlueprintNode = {
+    type: "flex",
+    direction: "column",
+    style: { gap: "0.5rem", css: "flex: 1 1 30%; position: sticky; top: 2rem; align-self: flex-start;" },
+    children: leftKids,
+    motion: { entrance: "fadeIn", entranceDelay: 0.2 },
+  };
+  const rightKids: BlueprintNode[] = [];
+  if (p.heading) rightKids.push({ type: "heading", level: 2, text: p.heading, style: { fontSize: "2.5rem", fontWeight: "700", color: "{colors.primary}", lineHeight: "1.1", mobile: { fontSize: "1.8rem" } }, motion: { entrance: "fadeInUp", entranceDelay: 0.1 } });
+  if (p.text) rightKids.push({ type: "text", text: p.text, style: { fontSize: "1.125rem", color: "{colors.muted}", lineHeight: "1.7" }, motion: { entrance: "fadeInUp", entranceDelay: 0.2 } });
+  if (p.image) rightKids.push({ type: "image", src: p.image, alt: p.imageAlt ?? p.heading ?? "", style: { width: "100%", borderRadius: "{radius.lg}", boxShadow: "{shadow.card}", css: "margin: 1.5rem 0;" }, motion: { entrance: "fadeInUp", entranceDelay: 0.3 } });
+  (p.sections ?? []).forEach((s, i) => {
+    if (s.heading) rightKids.push({ type: "heading", level: 3, text: s.heading, style: { fontSize: "1.5rem", fontWeight: "600", color: "{colors.primary}", marginTop: "1rem" }, motion: { entrance: "fadeInUp", entranceDelay: 0.1 * (i + 3) } });
+    if (s.text) rightKids.push({ type: "text", text: s.text, style: { color: "{colors.muted}", lineHeight: "1.7" }, motion: { entrance: "fadeInUp", entranceDelay: 0.1 * (i + 4) } });
+    if (s.image) rightKids.push({ type: "image", src: s.image, alt: s.heading ?? "", style: { width: "100%", borderRadius: "{radius.md}", boxShadow: "{shadow.soft}", css: "margin: 1rem 0;" }, motion: { entrance: "fadeInUp", entranceDelay: 0.1 * (i + 5) } });
+  });
+  const rightCol: BlueprintNode = { type: "flex", direction: "column", style: { gap: "0.75rem", css: "flex: 1 1 70%;" }, children: rightKids };
+  return section([
+    {
+      type: "flex",
+      direction: "row",
+      style: { gap: "4rem", alignItems: "flex-start", maxWidth: "1200px", width: "100%", padding: { left: "1.5rem", right: "1.5rem" }, mobile: { flexDirection: "column" }, css: "margin: 0 auto;" },
+      children: [leftCol, rightCol],
+    },
+  ], { padding: { top: "4rem", bottom: "4rem" } });
+}
+
+/**
+ * 5. showcase-carousel — Full-width section. Each slide: full-bleed background image,
+ * gradient overlay, content overlaid at bottom-left. Shows first slide as static hero.
+ */
+function showcaseCarousel(p: ShowcaseCarouselParams): BlueprintNode {
+  const slide = (p.slides ?? [])[0] ?? {};
+  const bgImage = slide.image ?? "";
+  const bgCss = bgImage
+    ? `background: url(${bgImage}) center/cover no-repeat; position: relative;`
+    : `background: linear-gradient(135deg, {colors.primary} 0%, {colors.accent} 100%); position: relative;`;
+  const overlayCss = "&::before{content:'';position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%, rgba(0,0,0,0.3) 100%);z-index:1;}";
+  const contentKids: BlueprintNode[] = [];
+  if (slide.heading) contentKids.push({
+    type: "heading", level: 2, text: slide.heading,
+    style: { fontSize: "2.5rem", fontWeight: "700", color: "#FFFFFF", lineHeight: "1.1", mobile: { fontSize: "1.8rem" } },
+    motion: { entrance: "fadeInUp", entranceDelay: 0.2 },
+  });
+  if (slide.text) contentKids.push({
+    type: "text", text: slide.text,
+    style: { fontSize: "1.125rem", color: "#FFFFFF", maxWidth: "50ch", css: "opacity: 0.85;" },
+    motion: { entrance: "fadeInUp", entranceDelay: 0.3 },
+  });
+  if (slide.cta) contentKids.push({
+    ...primaryButton(slide.cta),
+    style: { ...primaryButton(slide.cta).style, background: "{colors.accent}", color: "{colors.onAccent}" },
+    motion: { entrance: "fadeInUp", entranceDelay: 0.4 },
+  });
+  const sectionNode = section([
+    {
+      type: "flex",
+      direction: "column",
+      style: { gap: "1rem", justifyContent: "flex-end", alignItems: "flex-start", minHeight: "600px", maxWidth: "1200px", width: "100%", padding: { left: "3rem", right: "3rem", bottom: "3rem" }, css: "position: relative; z-index: 2; margin: 0 auto;" },
+      children: contentKids,
+    },
+  ], { css: bgCss + overlayCss, padding: { top: "0", bottom: "0" } });
+  return sectionNode;
+}
+
+/**
+ * 6. pricing-comparison — Three-column pricing row. Each card: plan name, price, period,
+ * feature list with checkmarks, CTA. Highlighted plan has ribbon badge, elevated shadow.
+ */
+function pricingComparison(p: PricingComparisonParams): BlueprintNode {
+  const head: BlueprintNode[] = [];
+  if (p.eyebrow) head.push(eyebrow(p.eyebrow, true));
+  if (p.heading) head.push(sectionHeading(p.heading));
+  const cards = (p.plans ?? []).map((pl, i) => {
+    const isHighlighted = pl.highlighted ?? false;
+    const cardKids: BlueprintNode[] = [];
+    if (pl.ribbon) {
+      cardKids.push({
+        type: "section",
+        style: { css: "position: absolute; top: 12px; right: -8px; background: {colors.accent}; color: {colors.onAccent}; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 4px 14px; border-radius: 4px; z-index: 3;" },
+        children: [{ type: "text", text: pl.ribbon, style: { color: "{colors.onAccent}", fontSize: "0.75rem", fontWeight: "700" } }],
+      });
+    }
+    cardKids.push({ type: "heading", level: 3, text: pl.name ?? "Plan", style: { fontSize: "1.25rem", fontWeight: "600", color: "{colors.primary}", textAlign: "center" } });
+    cardKids.push({
+      type: "flex",
+      direction: "row",
+      style: { gap: "0.25rem", justifyContent: "center", alignItems: "baseline" },
+      children: [
+        { type: "heading", level: 2, text: pl.price ?? "$0", style: { fontSize: "3rem", fontWeight: "700", color: "{colors.primary}", lineHeight: "1" } },
+        ...(pl.period ? [{ type: "text", text: pl.period, style: { color: "{colors.muted}", fontSize: "1rem" } }] : []),
+      ],
+    });
+    if (pl.features?.length) {
+      const featureItems = pl.features.map((f) => ({
+        type: "flex" as const,
+        direction: "row" as const,
+        style: { gap: "0.5rem", alignItems: "center" },
+        children: [
+          { type: "text", text: "✓", style: { color: "{colors.accent}", fontWeight: "700", fontSize: "1rem" } },
+          { type: "text", text: f, style: { color: "{colors.muted}", fontSize: "0.95rem" } },
+        ],
+      }));
+      cardKids.push({ type: "flex", direction: "column", style: { gap: "0.75rem", marginTop: "0.5rem" }, children: featureItems });
+    }
+    if (pl.cta) {
+      const btn = isHighlighted
+        ? { ...primaryButton(pl.cta), style: { ...primaryButton(pl.cta).style, background: "{colors.accent}", color: "{colors.onAccent}" } }
+        : ghostButton(pl.cta);
+      cardKids.push({ type: "flex", direction: "row", style: { justifyContent: "center", paddingTop: "1rem", css: "margin-top: auto;" }, children: [btn] });
+    }
+    return {
+      type: "flex",
+      direction: "column",
+      style: {
+        gap: "1rem",
+        css: `flex: 1 1 300px; position: relative;`,
+        background: "{colors.surface}",
+        padding: "2rem",
+        borderRadius: "{radius.lg}",
+        boxShadow: isHighlighted ? "{shadow.card}" : "{shadow.soft}",
+        hover: { css: "transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.12);" },
+      },
+      children: cardKids,
+      motion: { entrance: "fadeInUp", entranceDelay: 0.15 * i, hover: "float" },
+    };
+  });
+  const row: BlueprintNode = { type: "flex", direction: "row", style: { gap: "2rem", flexWrap: "wrap", alignItems: "stretch", mobile: { flexDirection: "column" } }, children: cards };
+  return section([container([...head, row], { gap: "2.5rem" })], { background: "{colors.bg}" });
+}
+
+// ---------------------------------------------------------------------------
 // Template registry
 // ---------------------------------------------------------------------------
 
@@ -1019,6 +1284,13 @@ export const TEMPLATES: Record<string, (params: Record<string, unknown>) => Blue
   "error-404": error404,
   "coming-soon": comingSoon,
   "map-section": mapSection,
+  // Premium archetypes
+  "hero-asymmetric": heroAsymmetric,
+  "hero-fullscreen": heroFullscreen,
+  "bento-grid": bentoGrid,
+  "editorial-split": editorialSplit,
+  "showcase-carousel": showcaseCarousel,
+  "pricing-comparison": pricingComparison,
 };
 
 export interface TemplateInfo {
@@ -1190,6 +1462,42 @@ export const TEMPLATE_INFO: TemplateInfo[] = [
     description: "Map section with contact info (address, phone, email, hours) and an embedded map iframe.",
     params: "heading?, address?, phone?, email?, mapEmbed? (iframe URL), hours?",
     example: { heading: "Visit Us", address: "123 Main St, City", phone: "+1 555 0100", email: "hello@example.com", mapEmbed: "https://maps.google.com/embed", hours: "Mon-Fri 9am-5pm" },
+  },
+  {
+    name: "hero-asymmetric",
+    description: "Two-column asymmetric hero (~55% text / ~45% image) with eyebrow, H1, text, CTAs, and gradient mesh background. Premium, bespoke feel.",
+    params: "eyebrow?, heading, text?, primaryCta? {text,href}, secondaryCta? {text,href}, image? (url), imageAlt?, imageSide? (left|right)",
+    example: { eyebrow: "Welcome", heading: "Design that stands out", text: "We craft digital experiences that leave a lasting impression.", primaryCta: { text: "Get started", href: "/start" }, secondaryCta: { text: "Learn more", href: "/about" }, image: "https://example.com/hero.jpg", imageSide: "right" },
+  },
+  {
+    name: "hero-fullscreen",
+    description: "Full viewport hero with gradient or image background, gradient text effect, glassmorphism CTA, and parallax scroll. Dramatic, modern.",
+    params: "heading, text?, cta? {text,href}, backgroundType? (gradient|image), backgroundImage? (url), overlayColor?, overlayOpacity?",
+    example: { heading: "Build the Future", text: "Transform your business with our platform.", cta: { text: "Get started", href: "/start" }, backgroundType: "gradient" },
+  },
+  {
+    name: "bento-grid",
+    description: "Bento grid with mixed-size cards (large 2x, medium 1x, small). Alternating backgrounds, images/icons, hover lift. Modern editorial layout.",
+    params: "eyebrow?, heading?, items: [{ title, text?, icon? (svg url), image? (url), span? (1|2), highlight? (bool) }]",
+    example: { heading: "Why choose us", items: [{ title: "All-in-one platform", text: "Everything you need in one place.", span: 2, highlight: true }, { title: "Fast", text: "Lightning quick performance." }, { title: "Secure", text: "Enterprise-grade security." }] },
+  },
+  {
+    name: "editorial-split",
+    description: "Two-column editorial layout: sticky left sidebar (30%) with eyebrow and decorative elements, scrollable right content (70%) with heading, text, images. Magazine-style.",
+    params: "eyebrow?, heading?, text?, image? (url), imageAlt?, sections?: [{ heading?, text?, image? }]",
+    example: { eyebrow: "Feature", heading: "The Art of Design", text: "A deep dive into our creative process.", image: "https://example.com/feature.jpg", sections: [{ heading: "Research", text: "We start with understanding." }, { heading: "Prototype", text: "Rapid iteration is key." }] },
+  },
+  {
+    name: "showcase-carousel",
+    description: "Full-bleed showcase slide with background image, gradient overlay, and bottom-left content. Premium hero for portfolio/landing pages.",
+    params: "slides?: [{ image? (url), heading?, text?, cta? {text,href} }], autoplay? (bool)",
+    example: { slides: [{ image: "https://example.com/slide1.jpg", heading: "Amazing Project", text: "See what we built.", cta: { text: "View case study", href: "/case-study" } }], autoplay: true },
+  },
+  {
+    name: "pricing-comparison",
+    description: "Three-column pricing comparison with plan name, price, period, feature checkmarks, CTA. Highlighted plan gets ribbon badge and elevated shadow.",
+    params: "eyebrow?, heading?, plans: [{ name, price, period?, features: [string], cta? {text,href}, ribbon?, highlighted? (bool) }]",
+    example: { heading: "Simple pricing", plans: [{ name: "Starter", price: "$19", period: "/mo", features: ["Basic features", "Email support"], cta: { text: "Get started", href: "/signup" } }, { name: "Pro", price: "$49", period: "/mo", features: ["All features", "Priority support", "API access"], ribbon: "Popular", highlighted: true, cta: { text: "Choose Pro", href: "/signup" } }, { name: "Enterprise", price: "$99", period: "/mo", features: ["Everything", "Dedicated support", "Custom integrations"], cta: { text: "Contact us", href: "/contact" } }] },
   },
 ];
 
