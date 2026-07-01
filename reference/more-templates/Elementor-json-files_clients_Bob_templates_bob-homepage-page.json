@@ -1,0 +1,58 @@
+{
+  "title": "bob-homepage-page",
+  "type": "page",
+  "version": "0.4",
+  "page_settings": [],
+  "content": [
+    {
+      "id": "bob-home-hero-container",
+      "elType": "container",
+      "isInner": false,
+      "settings": {
+        "html_tag": "section"
+      },
+      "elements": [
+        {
+          "id": "bob-home-hero-heading",
+          "elType": "widget",
+          "widgetType": "heading",
+          "isInner": false,
+          "settings": {
+            "title": "Welcome to Bob Sample Site"
+          },
+          "elements": []
+        },
+        {
+          "id": "bob-home-hero-text",
+          "elType": "widget",
+          "widgetType": "text-editor",
+          "isInner": false,
+          "settings": {
+            "editor": "<p>This is a minimal example homepage layout generated for testing AI-driven Elementor JSON templates.</p>"
+          },
+          "elements": []
+        },
+        {
+          "id": "bob-home-hero-button",
+          "elType": "widget",
+          "widgetType": "button",
+          "isInner": false,
+          "settings": {
+            "text": "Get Started"
+          },
+          "elements": []
+        },
+        {
+          "id": "bob-home-hero-form",
+          "elType": "widget",
+          "widgetType": "form",
+          "isInner": false,
+          "settings": {
+            "form_name": "Hero Lead Form"
+          },
+          "elements": []
+        }
+      ]
+    }
+  ]
+}

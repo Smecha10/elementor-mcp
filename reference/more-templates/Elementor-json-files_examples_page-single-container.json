@@ -1,0 +1,15 @@
+{
+  "title": "Template Title",
+  "type": "page",
+  "version": "0.4",
+  "page_settings": [],
+  "content": [
+    {
+      "id": "6af611eb",
+      "elType": "container",
+      "isInner": false,
+      "settings": [],
+      "elements": []
+    }
+  ]
+}

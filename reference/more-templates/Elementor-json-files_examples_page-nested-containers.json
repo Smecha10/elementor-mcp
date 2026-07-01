@@ -1,0 +1,31 @@
+{
+  "title": "Test Page",
+  "type": "page",
+  "version": "0.4",
+  "page_settings": [],
+  "content": [
+    {
+      "id": "458aabdc",
+      "elType": "container",
+      "isInner": false,
+      "settings": [],
+      "elements": [
+        {
+          "id": "46ef0576",
+          "elType": "container",
+          "isInner": false,
+          "settings": [],
+          "elements": [
+            {
+              "id": "4a59f2e3",
+              "elType": "container",
+              "isInner": false,
+              "settings": [],
+              "elements": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

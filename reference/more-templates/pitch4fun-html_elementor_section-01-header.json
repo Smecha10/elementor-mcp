@@ -1,0 +1,363 @@
+{
+  "type": "elementor",
+  "siteurl": "https://pitch4fun.com/wp-json/",
+  "elements": [
+    {
+      "id": "iym785n9",
+      "elType": "container",
+      "isInner": false,
+      "isLocked": false,
+      "settings": {
+        "content_width": "full",
+        "flex_direction": "row",
+        "flex_justify_content": "space-between",
+        "flex_align_items": "center",
+        "flex_gap": {
+          "column": "20",
+          "row": "0",
+          "isLinked": true,
+          "unit": "px"
+        },
+        "padding": {
+          "unit": "px",
+          "top": "24",
+          "right": "48",
+          "bottom": "12",
+          "left": "48",
+          "isLinked": false
+        },
+        "margin": {
+          "unit": "px",
+          "top": "0",
+          "right": "0",
+          "bottom": "0",
+          "left": "0",
+          "isLinked": true
+        },
+        "background_background": "classic",
+        "background_color": "#021024",
+        "border_border": "solid",
+        "border_color": "rgba(0,229,255,0.3)",
+        "border_width": {
+          "unit": "px",
+          "top": "0",
+          "right": "0",
+          "bottom": "1",
+          "left": "0",
+          "isLinked": false
+        },
+        "border_radius": {
+          "unit": "px",
+          "top": "0",
+          "right": "0",
+          "bottom": "0",
+          "left": "0",
+          "isLinked": true
+        }
+      },
+      "elements": [
+        {
+          "id": "37jpgiji",
+          "elType": "container",
+          "isInner": true,
+          "isLocked": false,
+          "settings": {
+            "content_width": "full",
+            "flex_direction": "row",
+            "flex_justify_content": "space-between",
+            "flex_align_items": "center",
+            "flex_gap": {
+              "column": "20",
+              "row": "0",
+              "isLinked": true,
+              "unit": "px"
+            },
+            "padding": {
+              "unit": "px",
+              "top": "0",
+              "right": "40",
+              "bottom": "0",
+              "left": "40",
+              "isLinked": false
+            },
+            "margin": {
+              "unit": "px",
+              "top": "0",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": true
+            }
+          },
+          "elements": [
+            {
+              "id": "hctyq5z0",
+              "elType": "container",
+              "isInner": true,
+              "isLocked": false,
+              "settings": {
+                "content_width": "full",
+                "flex_direction": "row",
+                "flex_justify_content": "flex-start",
+                "flex_align_items": "center",
+                "flex_gap": {
+                  "column": "0",
+                  "row": "0",
+                  "isLinked": true,
+                  "unit": "px"
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "0",
+                  "left": "0",
+                  "isLinked": false
+                },
+                "margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "0",
+                  "left": "0",
+                  "isLinked": true
+                }
+              },
+              "elements": [
+                {
+                  "id": "jwv7ps0m",
+                  "elType": "widget",
+                  "isInner": false,
+                  "isLocked": false,
+                  "settings": {
+                    "image": {
+                      "url": "https://pitch4fun.com/wp-content/uploads/2026/04/logo-pitch4fun.svg",
+                      "id": "",
+                      "size": ""
+                    },
+                    "image_size": "custom",
+                    "image_custom_dimension": {
+                      "width": 131,
+                      "height": 56
+                    },
+                    "align": "left",
+                    "width": {
+                      "unit": "%",
+                      "size": 100,
+                      "sizes": []
+                    },
+                    "_css_classes": "header-logo"
+                  },
+                  "defaultEditSettings": {
+                    "defaultEditRoute": "content"
+                  },
+                  "interactions": {},
+                  "elements": [],
+                  "widgetType": "image"
+                }
+              ],
+              "defaultEditSettings": {
+                "defaultEditRoute": "layout"
+              },
+              "interactions": {}
+            },
+            {
+              "id": "vqlh1wc0",
+              "elType": "container",
+              "isInner": true,
+              "isLocked": false,
+              "settings": {
+                "content_width": "full",
+                "flex_direction": "row",
+                "flex_justify_content": "center",
+                "flex_align_items": "center",
+                "flex_gap": {
+                  "column": "32",
+                  "row": "0",
+                  "isLinked": true,
+                  "unit": "px"
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "0",
+                  "left": "0",
+                  "isLinked": false
+                },
+                "margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "0",
+                  "left": "0",
+                  "isLinked": true
+                }
+              },
+              "elements": [
+                {
+                  "id": "9gr73ngu",
+                  "elType": "widget",
+                  "isInner": false,
+                  "isLocked": false,
+                  "settings": {
+                    "nav_menu": "",
+                    "layout": "horizontal",
+                    "align": "center",
+                    "menu_typography_typography": "custom",
+                    "menu_typography_font_size": {
+                      "unit": "px",
+                      "size": 13,
+                      "sizes": []
+                    },
+                    "menu_typography_font_weight": "700",
+                    "menu_typography_text_transform": "uppercase",
+                    "menu_typography_letter_spacing": {
+                      "unit": "px",
+                      "size": 2,
+                      "sizes": []
+                    },
+                    "menu_color": "#8899aa",
+                    "menu_color_hover": "#ffffff",
+                    "menu_color_active": "#8aff00",
+                    "_padding": {
+                      "unit": "px",
+                      "top": "0",
+                      "right": "0",
+                      "bottom": "0",
+                      "left": "0",
+                      "isLinked": true
+                    }
+                  },
+                  "defaultEditSettings": {
+                    "defaultEditRoute": "content"
+                  },
+                  "interactions": {},
+                  "elements": [],
+                  "widgetType": "nav-menu"
+                }
+              ],
+              "defaultEditSettings": {
+                "defaultEditRoute": "layout"
+              },
+              "interactions": {}
+            },
+            {
+              "id": "a4kqfte5",
+              "elType": "container",
+              "isInner": true,
+              "isLocked": false,
+              "settings": {
+                "content_width": "full",
+                "flex_direction": "row",
+                "flex_justify_content": "flex-end",
+                "flex_align_items": "center",
+                "flex_gap": {
+                  "column": "0",
+                  "row": "0",
+                  "isLinked": true,
+                  "unit": "px"
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "0",
+                  "left": "0",
+                  "isLinked": false
+                },
+                "margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "0",
+                  "left": "0",
+                  "isLinked": true
+                }
+              },
+              "elements": [
+                {
+                  "id": "wx3wusb7",
+                  "elType": "widget",
+                  "isInner": false,
+                  "isLocked": false,
+                  "settings": {
+                    "text": "Inscr\u00edbete",
+                    "link": {
+                      "url": "https://forms.gle/matdrFatkh6VSshCA",
+                      "is_external": "on",
+                      "nofollow": "",
+                      "custom_attributes": ""
+                    },
+                    "align": "center",
+                    "size": "sm",
+                    "typography_typography": "custom",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12,
+                      "sizes": []
+                    },
+                    "typography_font_weight": "700",
+                    "typography_letter_spacing": {
+                      "unit": "px",
+                      "size": 2,
+                      "sizes": []
+                    },
+                    "typography_text_transform": "uppercase",
+                    "background_color": "#83CE00",
+                    "text_color": "#021024",
+                    "hover_color": "#021024",
+                    "background_hover_color": "#00e5ff",
+                    "border_radius": {
+                      "unit": "px",
+                      "top": "50",
+                      "right": "50",
+                      "bottom": "50",
+                      "left": "50",
+                      "isLinked": true
+                    },
+                    "button_padding": {
+                      "unit": "px",
+                      "top": "10",
+                      "right": "24",
+                      "bottom": "10",
+                      "left": "24",
+                      "isLinked": false
+                    },
+                    "box_shadow_box_shadow_type": "yes",
+                    "box_shadow_box_shadow": {
+                      "horizontal": 0,
+                      "vertical": 0,
+                      "blur": 20,
+                      "spread": 0,
+                      "color": "rgba(131,206,0,0.3)"
+                    },
+                    "box_shadow_box_shadow_position": " "
+                  },
+                  "defaultEditSettings": {
+                    "defaultEditRoute": "content"
+                  },
+                  "interactions": {},
+                  "elements": [],
+                  "widgetType": "button"
+                }
+              ],
+              "defaultEditSettings": {
+                "defaultEditRoute": "layout"
+              },
+              "interactions": {}
+            }
+          ],
+          "defaultEditSettings": {
+            "defaultEditRoute": "layout"
+          },
+          "interactions": {}
+        }
+      ],
+      "defaultEditSettings": {
+        "defaultEditRoute": "layout"
+      },
+      "interactions": {}
+    }
+  ]
+}

@@ -1,0 +1,461 @@
+{
+  "type": "elementor",
+  "siteurl": "https://pitch4fun.com/wp-json/",
+  "elements": [
+    {
+      "id": "hxjyrfcw",
+      "elType": "container",
+      "isInner": false,
+      "isLocked": false,
+      "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_justify_content": "flex-start",
+        "flex_align_items": "center",
+        "flex_gap": {
+          "column": "0",
+          "row": "0",
+          "isLinked": true,
+          "unit": "px"
+        },
+        "padding": {
+          "unit": "px",
+          "top": "80",
+          "right": "48",
+          "bottom": "80",
+          "left": "48",
+          "isLinked": false
+        },
+        "margin": {
+          "unit": "px",
+          "top": "0",
+          "right": "0",
+          "bottom": "0",
+          "left": "0",
+          "isLinked": true
+        },
+        "background_background": "classic",
+        "background_color": "#010a18",
+        "border_border": "solid",
+        "border_color": "rgba(0,229,255,0.1)",
+        "border_width": {
+          "unit": "px",
+          "top": "1",
+          "right": "0",
+          "bottom": "1",
+          "left": "0",
+          "isLinked": false
+        },
+        "border_radius": {
+          "unit": "px",
+          "top": "0",
+          "right": "0",
+          "bottom": "0",
+          "left": "0",
+          "isLinked": true
+        }
+      },
+      "elements": [
+        {
+          "id": "n7rzwti9",
+          "elType": "container",
+          "isInner": true,
+          "isLocked": false,
+          "settings": {
+            "content_width": "full",
+            "flex_direction": "column",
+            "flex_justify_content": "flex-start",
+            "flex_align_items": "center",
+            "flex_gap": {
+              "column": "0",
+              "row": "0",
+              "isLinked": true,
+              "unit": "px"
+            },
+            "padding": {
+              "unit": "px",
+              "top": "0",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": false
+            },
+            "margin": {
+              "unit": "px",
+              "top": "0",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": true
+            }
+          },
+          "elements": [
+            {
+              "id": "ax50e06r",
+              "elType": "widget",
+              "isInner": false,
+              "isLocked": false,
+              "settings": {
+                "title": "C\u00f3mo es el Proceso",
+                "header_size": "h2",
+                "align": "center",
+                "title_color": "#ffffff",
+                "typography_typography": "custom",
+                "typography_font_family": "Obvia, sans-serif",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 40,
+                  "sizes": []
+                },
+                "typography_font_size_tablet": {
+                  "unit": "px",
+                  "size": 30,
+                  "sizes": []
+                },
+                "typography_font_size_mobile": {
+                  "unit": "px",
+                  "size": 24,
+                  "sizes": []
+                },
+                "typography_font_weight": "900",
+                "typography_text_transform": "uppercase",
+                "typography_font_style": "normal",
+                "typography_letter_spacing": {
+                  "unit": "px",
+                  "size": 2,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.2,
+                  "sizes": []
+                },
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "16",
+                  "left": "0",
+                  "isLinked": false
+                },
+                "_padding": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "0",
+                  "left": "0",
+                  "isLinked": true
+                }
+              },
+              "defaultEditSettings": {
+                "defaultEditRoute": "content"
+              },
+              "interactions": {},
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "7knmys11",
+              "elType": "widget",
+              "isInner": false,
+              "isLocked": false,
+              "settings": {
+                "html": "<div style=\"display:inline-block;border:1px solid rgba(0,229,255,0.3);border-radius:9999px;padding:12px 24px;background:rgba(5,24,51,0.8);backdrop-filter:blur(8px);\">\n  <p style=\"font-family:Obvia,sans-serif;font-weight:700;font-style:italic;font-size:14px;color:#00e5ff;margin:0;\">\"No se negocia el tiempo. No se pausa el deck. Por eso funciona.\"</p>\n</div>",
+                "_background_image": {
+                  "url": "",
+                  "id": "",
+                  "size": ""
+                },
+                "_background_video_fallback": {
+                  "url": "",
+                  "id": "",
+                  "size": ""
+                },
+                "_background_slideshow_gallery": [],
+                "_background_hover_image": {
+                  "url": "",
+                  "id": "",
+                  "size": ""
+                },
+                "_background_hover_video_fallback": {
+                  "url": "",
+                  "id": "",
+                  "size": ""
+                },
+                "_background_hover_slideshow_gallery": [],
+                "_mask_image": {
+                  "url": "",
+                  "id": "",
+                  "size": ""
+                },
+                "_title": "",
+                "_flex_grow": 1,
+                "_flex_shrink": 1,
+                "_position": "",
+                "_offset_orientation_h": "start",
+                "_offset_x": {
+                  "unit": "px",
+                  "size": 0,
+                  "sizes": []
+                },
+                "_offset_x_end": {
+                  "unit": "px",
+                  "size": 0,
+                  "sizes": []
+                },
+                "_offset_orientation_v": "start",
+                "_offset_y": {
+                  "unit": "px",
+                  "size": 0,
+                  "sizes": []
+                },
+                "_offset_y_end": {
+                  "unit": "px",
+                  "size": 0,
+                  "sizes": []
+                },
+                "_z_index": "",
+                "_element_id": "",
+                "_css_classes": "",
+                "e_display_conditions": "",
+                "_element_cache": "",
+                "_background_background": "",
+                "_background_color": "",
+                "_background_color_b": "#f2295b",
+                "_background_gradient_type": "linear",
+                "_background_gradient_angle": {
+                  "unit": "deg",
+                  "size": 180,
+                  "sizes": []
+                },
+                "_background_gradient_position": "center center",
+                "_border_border": "",
+                "_border_color": "",
+                "_border_radius": {
+                  "unit": "px",
+                  "top": "",
+                  "right": "",
+                  "bottom": "",
+                  "left": "",
+                  "isLinked": true
+                },
+                "_box_shadow_box_shadow_type": "",
+                "_box_shadow_box_shadow": {
+                  "horizontal": 0,
+                  "vertical": 0,
+                  "blur": 10,
+                  "spread": 0,
+                  "color": "rgba(0,0,0,0.5)"
+                },
+                "_box_shadow_box_shadow_position": " ",
+                "_border_hover_border": "",
+                "_border_hover_color": "",
+                "_border_radius_hover": {
+                  "unit": "px",
+                  "top": "",
+                  "right": "",
+                  "bottom": "",
+                  "left": "",
+                  "isLinked": true
+                },
+                "_box_shadow_hover_box_shadow_type": "",
+                "_box_shadow_hover_box_shadow": {
+                  "horizontal": 0,
+                  "vertical": 0,
+                  "blur": 10,
+                  "spread": 0,
+                  "color": "rgba(0,0,0,0.5)"
+                },
+                "_box_shadow_hover_box_shadow_position": " ",
+                "_border_hover_transition": {
+                  "unit": "px",
+                  "size": "",
+                  "sizes": []
+                },
+                "_mask_switch": "",
+                "_mask_shape": "circle",
+                "_mask_size": "contain",
+                "_mask_position": "center center",
+                "_mask_repeat": "no-repeat",
+                "hide_desktop": "",
+                "hide_tablet": "",
+                "hide_mobile": "",
+                "_attributes": "",
+                "custom_css": ""
+              },
+              "defaultEditSettings": {
+                "defaultEditRoute": "content"
+              },
+              "interactions": {},
+              "elements": [],
+              "widgetType": "html"
+            },
+            {
+              "id": "v825v0n5",
+              "elType": "spacer",
+              "isInner": false,
+              "isLocked": false,
+              "settings": {
+                "space": {
+                  "unit": "px",
+                  "size": 48,
+                  "sizes": []
+                }
+              },
+              "defaultEditSettings": {
+                "defaultEditRoute": "content"
+              },
+              "interactions": {},
+              "elements": [],
+              "widgetType": "spacer"
+            },
+            {
+              "id": "wrwu5ewp",
+              "elType": "widget",
+              "isInner": false,
+              "isLocked": false,
+              "settings": {
+                "html": "<div style=\"display:flex;flex-wrap:wrap;justify-content:center;gap:48px;width:100%;max-width:1100px;\">\n  <div style=\"display:flex;flex-direction:column;align-items:center;text-align:center;flex:1;min-width:140px;max-width:200px;\">\n    <div style=\"width:80px;height:80px;border-radius:50%;border:2px solid #00e5ff;display:flex;align-items:center;justify-content:center;font-family:Obvia,sans-serif;font-weight:900;font-size:28px;color:#00e5ff;background:#021024;margin-bottom:24px;box-shadow:0 0 20px rgba(0,229,255,0.3);\">1</div>\n    <h4 style=\"font-family:Obvia,sans-serif;font-weight:900;font-size:16px;text-transform:uppercase;color:#fff;margin:0 0 12px 0;line-height:1.2;\">Pitch en autoplay</h4>\n    <p style=\"font-family:Obvia,sans-serif;font-size:13px;color:#8899aa;margin:0;line-height:1.5;\">10 slides, 30s c/u. 5 min totales. No se pausa.</p>\n  </div>\n  <div style=\"display:flex;flex-direction:column;align-items:center;text-align:center;flex:1;min-width:140px;max-width:200px;\">\n    <div style=\"width:80px;height:80px;border-radius:50%;border:2px solid #8aff00;display:flex;align-items:center;justify-content:center;font-family:Obvia,sans-serif;font-weight:900;font-size:28px;color:#8aff00;background:#021024;margin-bottom:24px;box-shadow:0 0 20px rgba(138,255,0,0.3);\">2</div>\n    <h4 style=\"font-family:Obvia,sans-serif;font-weight:900;font-size:16px;text-transform:uppercase;color:#fff;margin:0 0 12px 0;line-height:1.2;\">Slide 10: tu ASK</h4>\n    <p style=\"font-family:Obvia,sans-serif;font-size:13px;color:#8899aa;margin:0;line-height:1.5;\">\u00bfQu\u00e9 necesitas? Talento, inversi\u00f3n... Es obligatorio.</p>\n  </div>\n  <div style=\"display:flex;flex-direction:column;align-items:center;text-align:center;flex:1;min-width:140px;max-width:200px;\">\n    <div style=\"width:80px;height:80px;border-radius:50%;border:2px solid #00e5ff;display:flex;align-items:center;justify-content:center;font-family:Obvia,sans-serif;font-weight:900;font-size:28px;color:#00e5ff;background:#021024;margin-bottom:24px;box-shadow:0 0 20px rgba(0,229,255,0.3);\">3</div>\n    <h4 style=\"font-family:Obvia,sans-serif;font-weight:900;font-size:16px;text-transform:uppercase;color:#fff;margin:0 0 12px 0;line-height:1.2;\">Panel 3\u00d760s</h4>\n    <p style=\"font-family:Obvia,sans-serif;font-size:13px;color:#8899aa;margin:0;line-height:1.5;\">Feedback cronometrado sin rodeos. Acci\u00f3n pura.</p>\n  </div>\n  <div style=\"display:flex;flex-direction:column;align-items:center;text-align:center;flex:1;min-width:140px;max-width:200px;\">\n    <div style=\"width:80px;height:80px;border-radius:50%;border:2px solid #8aff00;display:flex;align-items:center;justify-content:center;font-family:Obvia,sans-serif;font-weight:900;font-size:28px;color:#8aff00;background:#021024;margin-bottom:24px;box-shadow:0 0 20px rgba(138,255,0,0.3);\">4</div>\n    <h4 style=\"font-family:Obvia,sans-serif;font-weight:900;font-size:16px;text-transform:uppercase;color:#fff;margin:0 0 12px 0;line-height:1.2;\">Votaci\u00f3n p\u00fablico</h4>\n    <p style=\"font-family:Obvia,sans-serif;font-size:13px;color:#8899aa;margin:0;line-height:1.5;\">1 voto por correo registrado. Simple y real.</p>\n  </div>\n  <div style=\"display:flex;flex-direction:column;align-items:center;text-align:center;flex:1;min-width:140px;max-width:200px;\">\n    <div style=\"width:80px;height:80px;border-radius:50%;border:2px solid #00e5ff;display:flex;align-items:center;justify-content:center;font-family:Obvia,sans-serif;font-weight:900;font-size:28px;color:#00e5ff;background:#021024;margin-bottom:24px;box-shadow:0 0 20px rgba(0,229,255,0.3);\">5</div>\n    <h4 style=\"font-family:Obvia,sans-serif;font-weight:900;font-size:16px;text-transform:uppercase;color:#fff;margin:0 0 12px 0;line-height:1.2;\">Wall of Asks</h4>\n    <p style=\"font-family:Obvia,sans-serif;font-size:13px;color:#8899aa;margin:0;line-height:1.5;\">La comunidad conecta para cumplir tus pedidos.</p>\n  </div>\n</div>",
+                "_background_image": {
+                  "url": "",
+                  "id": "",
+                  "size": ""
+                },
+                "_background_video_fallback": {
+                  "url": "",
+                  "id": "",
+                  "size": ""
+                },
+                "_background_slideshow_gallery": [],
+                "_background_hover_image": {
+                  "url": "",
+                  "id": "",
+                  "size": ""
+                },
+                "_background_hover_video_fallback": {
+                  "url": "",
+                  "id": "",
+                  "size": ""
+                },
+                "_background_hover_slideshow_gallery": [],
+                "_mask_image": {
+                  "url": "",
+                  "id": "",
+                  "size": ""
+                },
+                "_title": "",
+                "_flex_grow": 1,
+                "_flex_shrink": 1,
+                "_position": "",
+                "_offset_orientation_h": "start",
+                "_offset_x": {
+                  "unit": "px",
+                  "size": 0,
+                  "sizes": []
+                },
+                "_offset_x_end": {
+                  "unit": "px",
+                  "size": 0,
+                  "sizes": []
+                },
+                "_offset_orientation_v": "start",
+                "_offset_y": {
+                  "unit": "px",
+                  "size": 0,
+                  "sizes": []
+                },
+                "_offset_y_end": {
+                  "unit": "px",
+                  "size": 0,
+                  "sizes": []
+                },
+                "_z_index": "",
+                "_element_id": "",
+                "_css_classes": "",
+                "e_display_conditions": "",
+                "_element_cache": "",
+                "_background_background": "",
+                "_background_color": "",
+                "_background_color_b": "#f2295b",
+                "_background_gradient_type": "linear",
+                "_background_gradient_angle": {
+                  "unit": "deg",
+                  "size": 180,
+                  "sizes": []
+                },
+                "_background_gradient_position": "center center",
+                "_border_border": "",
+                "_border_color": "",
+                "_border_radius": {
+                  "unit": "px",
+                  "top": "",
+                  "right": "",
+                  "bottom": "",
+                  "left": "",
+                  "isLinked": true
+                },
+                "_box_shadow_box_shadow_type": "",
+                "_box_shadow_box_shadow": {
+                  "horizontal": 0,
+                  "vertical": 0,
+                  "blur": 10,
+                  "spread": 0,
+                  "color": "rgba(0,0,0,0.5)"
+                },
+                "_box_shadow_box_shadow_position": " ",
+                "_border_hover_border": "",
+                "_border_hover_color": "",
+                "_border_radius_hover": {
+                  "unit": "px",
+                  "top": "",
+                  "right": "",
+                  "bottom": "",
+                  "left": "",
+                  "isLinked": true
+                },
+                "_box_shadow_hover_box_shadow_type": "",
+                "_box_shadow_hover_box_shadow": {
+                  "horizontal": 0,
+                  "vertical": 0,
+                  "blur": 10,
+                  "spread": 0,
+                  "color": "rgba(0,0,0,0.5)"
+                },
+                "_box_shadow_hover_box_shadow_position": " ",
+                "_border_hover_transition": {
+                  "unit": "px",
+                  "size": "",
+                  "sizes": []
+                },
+                "_mask_switch": "",
+                "_mask_shape": "circle",
+                "_mask_size": "contain",
+                "_mask_position": "center center",
+                "_mask_repeat": "no-repeat",
+                "hide_desktop": "",
+                "hide_tablet": "",
+                "hide_mobile": "",
+                "_attributes": "",
+                "custom_css": ""
+              },
+              "defaultEditSettings": {
+                "defaultEditRoute": "content"
+              },
+              "interactions": {},
+              "elements": [],
+              "widgetType": "html"
+            }
+          ],
+          "defaultEditSettings": {
+            "defaultEditRoute": "layout"
+          },
+          "interactions": {}
+        }
+      ],
+      "defaultEditSettings": {
+        "defaultEditRoute": "layout"
+      },
+      "interactions": {}
+    }
+  ]
+}

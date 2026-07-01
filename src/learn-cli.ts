@@ -15,8 +15,8 @@ async function main() {
   for (const file of files) {
     try {
       const json = JSON.parse(await readFile(file, "utf-8"));
-      if (!json || !Array.isArray(json.content)) {
-        console.error(`Skipping ${file}: not a valid Elementor export (missing content array)`);
+      if (!json || !(Array.isArray(json.content) || Array.isArray(json.elements))) {
+        console.error(`Skipping ${file}: not a valid Elementor export (missing content/elements array)`);
         continue;
       }
       const { summary } = await learnFromDoc(json, file.split("/").pop() ?? file);

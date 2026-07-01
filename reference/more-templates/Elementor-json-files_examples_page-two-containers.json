@@ -1,0 +1,22 @@
+{
+  "title": "Sample Page",
+  "type": "page",
+  "version": "0.4",
+  "page_settings": [],
+  "content": [
+    {
+      "id": "6af611eb",
+      "elType": "container",
+      "isInner": false,
+      "settings": [],
+      "elements": []
+    },
+    {
+      "id": "7fb170b9",
+      "elType": "container",
+      "isInner": false,
+      "settings": [],
+      "elements": []
+    }
+  ]
+}

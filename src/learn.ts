@@ -44,6 +44,7 @@ interface ElementorNode {
 
 interface ElementorDoc {
   content?: ElementorNode[];
+  elements?: ElementorNode[]; // raw format (from active Elementor data, not export)
 }
 
 function classify(node: ElementorNode): string {
@@ -113,7 +114,8 @@ export function extractSchemas(doc: ElementorDoc, source = "inline"): Record<str
     }
     for (const child of node.elements ?? []) visit(child);
   }
-  for (const node of doc.content ?? []) visit(node);
+  const nodes = doc.content ?? doc.elements ?? [];
+  for (const node of nodes) visit(node);
   return reg;
 }
 

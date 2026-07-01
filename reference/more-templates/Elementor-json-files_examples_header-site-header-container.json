@@ -1,0 +1,19 @@
+{
+  "title": "Site Header",
+  "type": "header",
+  "version": "0.4",
+  "page_settings": {
+    "content_wrapper_html_tag": "header",
+    "background_background": "classic",
+    "background_color": "#000000"
+  },
+  "content": [
+    {
+      "id": "3130e2cf",
+      "elType": "container",
+      "isInner": false,
+      "settings": [],
+      "elements": []
+    }
+  ]
+}

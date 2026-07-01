@@ -1,0 +1,266 @@
+{
+  "type": "elementor",
+  "siteurl": "https://pitch4fun.com/wp-json/",
+  "elements": [
+    {
+      "id": "vwsjsx51",
+      "elType": "container",
+      "isInner": false,
+      "isLocked": false,
+      "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_justify_content": "flex-start",
+        "flex_align_items": "center",
+        "flex_gap": {
+          "column": "0",
+          "row": "0",
+          "isLinked": true,
+          "unit": "px"
+        },
+        "padding": {
+          "unit": "px",
+          "top": "64",
+          "right": "48",
+          "bottom": "64",
+          "left": "48",
+          "isLinked": false
+        },
+        "margin": {
+          "unit": "px",
+          "top": "0",
+          "right": "0",
+          "bottom": "0",
+          "left": "0",
+          "isLinked": true
+        },
+        "background_background": "classic",
+        "background_color": "#021024",
+        "border_border": "solid",
+        "border_color": "rgba(255,255,255,0.05)",
+        "border_width": {
+          "unit": "px",
+          "top": "1",
+          "right": "0",
+          "bottom": "0",
+          "left": "0",
+          "isLinked": false
+        },
+        "border_radius": {
+          "unit": "px",
+          "top": "0",
+          "right": "0",
+          "bottom": "0",
+          "left": "0",
+          "isLinked": true
+        }
+      },
+      "elements": [
+        {
+          "id": "qltaynfk",
+          "elType": "widget",
+          "isInner": false,
+          "isLocked": false,
+          "settings": {
+            "title": "Aliados y Colaboradores",
+            "header_size": "h2",
+            "align": "center",
+            "title_color": "#ffffff",
+            "typography_typography": "custom",
+            "typography_font_family": "Obvia, sans-serif",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 32,
+              "sizes": []
+            },
+            "typography_font_size_tablet": {
+              "unit": "px",
+              "size": 24,
+              "sizes": []
+            },
+            "typography_font_size_mobile": {
+              "unit": "px",
+              "size": 19,
+              "sizes": []
+            },
+            "typography_font_weight": "900",
+            "typography_text_transform": "uppercase",
+            "typography_font_style": "normal",
+            "typography_letter_spacing": {
+              "unit": "px",
+              "size": 2,
+              "sizes": []
+            },
+            "typography_line_height": {
+              "unit": "em",
+              "size": 1.2,
+              "sizes": []
+            },
+            "_margin": {
+              "unit": "px",
+              "top": "0",
+              "right": "0",
+              "bottom": "48",
+              "left": "0",
+              "isLinked": false
+            },
+            "_padding": {
+              "unit": "px",
+              "top": "0",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": true
+            }
+          },
+          "defaultEditSettings": {
+            "defaultEditRoute": "content"
+          },
+          "interactions": {},
+          "elements": [],
+          "widgetType": "heading"
+        },
+        {
+          "id": "gp1n6m8x",
+          "elType": "widget",
+          "isInner": false,
+          "isLocked": false,
+          "settings": {
+            "html": "<div style=\"display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:48px;\">\n  <a href=\"https://iavanza.co\" target=\"_blank\" rel=\"noopener\" style=\"display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;filter:grayscale(1);opacity:0.6;transition:all 0.5s;cursor:pointer;\" onmouseover=\"this.style.filter='grayscale(0)';this.style.opacity='1';\" onmouseout=\"this.style.filter='grayscale(1)';this.style.opacity='0.6';\">\n    <img src=\"https://pitch4fun.com/logo-iavanza.png\" alt=\"IAvanza\" style=\"height:48px;width:auto;object-fit:contain;\" onerror=\"this.style.display='none'\">\n    <span style=\"font-family:Obvia,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:#8899aa;\">IAvanza</span>\n  </a>\n  <a href=\"https://enlata.do\" target=\"_blank\" rel=\"noopener\" style=\"display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;filter:grayscale(1);opacity:0.6;transition:all 0.5s;cursor:pointer;\" onmouseover=\"this.style.filter='grayscale(0)';this.style.opacity='1';\" onmouseout=\"this.style.filter='grayscale(1)';this.style.opacity='0.6';\">\n    <img src=\"https://pitch4fun.com/logo-enlata.png\" alt=\"Enlata\" style=\"height:40px;width:auto;object-fit:contain;\" onerror=\"this.style.display='none'\">\n    <span style=\"font-family:Obvia,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:#8899aa;\">Enlata</span>\n  </a>\n  <a href=\"https://hf.cx\" target=\"_blank\" rel=\"noopener\" style=\"display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;filter:grayscale(1);opacity:0.6;transition:all 0.5s;cursor:pointer;\" onmouseover=\"this.style.filter='grayscale(0)';this.style.opacity='1';\" onmouseout=\"this.style.filter='grayscale(1)';this.style.opacity='0.6';\">\n    <img src=\"https://pitch4fun.com/logo-hf.png\" alt=\"Hackers & Founders\" style=\"height:40px;width:auto;object-fit:contain;\" onerror=\"this.style.display='none'\">\n    <span style=\"font-family:Obvia,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:#8899aa;\">H&F</span>\n  </a>\n  <a href=\"https://clevergrowth.co\" target=\"_blank\" rel=\"noopener\" style=\"display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;filter:grayscale(1);opacity:0.6;transition:all 0.5s;cursor:pointer;\" onmouseover=\"this.style.filter='grayscale(0)';this.style.opacity='1';\" onmouseout=\"this.style.filter='grayscale(1)';this.style.opacity='0.6';\">\n    <img src=\"https://pitch4fun.com/logo-clevergrowth.jpg\" alt=\"CleverGrowth\" style=\"height:40px;width:auto;object-fit:contain;border-radius:12px;\" onerror=\"this.style.display='none'\">\n    <span style=\"font-family:Obvia,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:#8899aa;\">CleverGrowth</span>\n  </a>\n</div>",
+            "_background_image": {
+              "url": "",
+              "id": "",
+              "size": ""
+            },
+            "_background_video_fallback": {
+              "url": "",
+              "id": "",
+              "size": ""
+            },
+            "_background_slideshow_gallery": [],
+            "_background_hover_image": {
+              "url": "",
+              "id": "",
+              "size": ""
+            },
+            "_background_hover_video_fallback": {
+              "url": "",
+              "id": "",
+              "size": ""
+            },
+            "_background_hover_slideshow_gallery": [],
+            "_mask_image": {
+              "url": "",
+              "id": "",
+              "size": ""
+            },
+            "_title": "",
+            "_flex_grow": 1,
+            "_flex_shrink": 1,
+            "_position": "",
+            "_offset_orientation_h": "start",
+            "_offset_x": {
+              "unit": "px",
+              "size": 0,
+              "sizes": []
+            },
+            "_offset_x_end": {
+              "unit": "px",
+              "size": 0,
+              "sizes": []
+            },
+            "_offset_orientation_v": "start",
+            "_offset_y": {
+              "unit": "px",
+              "size": 0,
+              "sizes": []
+            },
+            "_offset_y_end": {
+              "unit": "px",
+              "size": 0,
+              "sizes": []
+            },
+            "_z_index": "",
+            "_element_id": "",
+            "_css_classes": "",
+            "e_display_conditions": "",
+            "_element_cache": "",
+            "_background_background": "",
+            "_background_color": "",
+            "_background_color_b": "#f2295b",
+            "_background_gradient_type": "linear",
+            "_background_gradient_angle": {
+              "unit": "deg",
+              "size": 180,
+              "sizes": []
+            },
+            "_background_gradient_position": "center center",
+            "_border_border": "",
+            "_border_color": "",
+            "_border_radius": {
+              "unit": "px",
+              "top": "",
+              "right": "",
+              "bottom": "",
+              "left": "",
+              "isLinked": true
+            },
+            "_box_shadow_box_shadow_type": "",
+            "_box_shadow_box_shadow": {
+              "horizontal": 0,
+              "vertical": 0,
+              "blur": 10,
+              "spread": 0,
+              "color": "rgba(0,0,0,0.5)"
+            },
+            "_box_shadow_box_shadow_position": " ",
+            "_border_hover_border": "",
+            "_border_hover_color": "",
+            "_border_radius_hover": {
+              "unit": "px",
+              "top": "",
+              "right": "",
+              "bottom": "",
+              "left": "",
+              "isLinked": true
+            },
+            "_box_shadow_hover_box_shadow_type": "",
+            "_box_shadow_hover_box_shadow": {
+              "horizontal": 0,
+              "vertical": 0,
+              "blur": 10,
+              "spread": 0,
+              "color": "rgba(0,0,0,0.5)"
+            },
+            "_box_shadow_hover_box_shadow_position": " ",
+            "_border_hover_transition": {
+              "unit": "px",
+              "size": "",
+              "sizes": []
+            },
+            "_mask_switch": "",
+            "_mask_shape": "circle",
+            "_mask_size": "contain",
+            "_mask_position": "center center",
+            "_mask_repeat": "no-repeat",
+            "hide_desktop": "",
+            "hide_tablet": "",
+            "hide_mobile": "",
+            "_attributes": "",
+            "custom_css": ""
+          },
+          "defaultEditSettings": {
+            "defaultEditRoute": "content"
+          },
+          "interactions": {},
+          "elements": [],
+          "widgetType": "html"
+        }
+      ],
+      "defaultEditSettings": {
+        "defaultEditRoute": "layout"
+      },
+      "interactions": {}
+    }
+  ]
+}

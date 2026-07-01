@@ -1,0 +1,48 @@
+{
+  "title": "tom-hero-section",
+  "type": "section",
+  "version": "0.4",
+  "page_settings": [],
+  "content": [
+    {
+      "id": "tom-section-hero-container",
+      "elType": "container",
+      "isInner": false,
+      "settings": {
+        "html_tag": "section"
+      },
+      "elements": [
+        {
+          "id": "tom-section-hero-heading",
+          "elType": "widget",
+          "widgetType": "heading",
+          "isInner": false,
+          "settings": {
+            "title": "Hero Section for Tom"
+          },
+          "elements": []
+        },
+        {
+          "id": "tom-section-hero-text",
+          "elType": "widget",
+          "widgetType": "text-editor",
+          "isInner": false,
+          "settings": {
+            "editor": "<p>This reusable hero section is intended as a sample section template for Tom.</p>"
+          },
+          "elements": []
+        },
+        {
+          "id": "tom-section-hero-button",
+          "elType": "widget",
+          "widgetType": "button",
+          "isInner": false,
+          "settings": {
+            "text": "Get in Touch"
+          },
+          "elements": []
+        }
+      ]
+    }
+  ]
+}

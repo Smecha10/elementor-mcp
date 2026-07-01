@@ -1,0 +1,48 @@
+{
+  "title": "tom-homepage-page",
+  "type": "page",
+  "version": "0.4",
+  "page_settings": [],
+  "content": [
+    {
+      "id": "tom-home-hero-container",
+      "elType": "container",
+      "isInner": false,
+      "settings": {
+        "html_tag": "section"
+      },
+      "elements": [
+        {
+          "id": "tom-home-hero-heading",
+          "elType": "widget",
+          "widgetType": "heading",
+          "isInner": false,
+          "settings": {
+            "title": "Welcome to Tom Sample Site"
+          },
+          "elements": []
+        },
+        {
+          "id": "tom-home-hero-text",
+          "elType": "widget",
+          "widgetType": "text-editor",
+          "isInner": false,
+          "settings": {
+            "editor": "<p>This is a minimal example homepage layout for a Free-mode client (Tom) using only basic widgets.</p>"
+          },
+          "elements": []
+        },
+        {
+          "id": "tom-home-hero-button",
+          "elType": "widget",
+          "widgetType": "button",
+          "isInner": false,
+          "settings": {
+            "text": "Learn More"
+          },
+          "elements": []
+        }
+      ]
+    }
+  ]
+}

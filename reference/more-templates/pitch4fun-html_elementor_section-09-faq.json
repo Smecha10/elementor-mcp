@@ -1,0 +1,197 @@
+{
+  "type": "elementor",
+  "siteurl": "https://pitch4fun.com/wp-json/",
+  "elements": [
+    {
+      "id": "z25e7fq2",
+      "elType": "container",
+      "isInner": false,
+      "isLocked": false,
+      "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_justify_content": "flex-start",
+        "flex_align_items": "center",
+        "flex_gap": {
+          "column": "0",
+          "row": "0",
+          "isLinked": true,
+          "unit": "px"
+        },
+        "padding": {
+          "unit": "px",
+          "top": "80",
+          "right": "48",
+          "bottom": "80",
+          "left": "48",
+          "isLinked": false
+        },
+        "margin": {
+          "unit": "px",
+          "top": "0",
+          "right": "0",
+          "bottom": "0",
+          "left": "0",
+          "isLinked": true
+        },
+        "background_background": "classic",
+        "background_color": "#010a18",
+        "border_border": "solid",
+        "border_color": "rgba(0,229,255,0.1)",
+        "border_width": {
+          "unit": "px",
+          "top": "1",
+          "right": "0",
+          "bottom": "1",
+          "left": "0",
+          "isLinked": false
+        },
+        "border_radius": {
+          "unit": "px",
+          "top": "0",
+          "right": "0",
+          "bottom": "0",
+          "left": "0",
+          "isLinked": true
+        }
+      },
+      "elements": [
+        {
+          "id": "f0rbdap8",
+          "elType": "widget",
+          "isInner": false,
+          "isLocked": false,
+          "settings": {
+            "title": "Preguntas Frecuentes",
+            "header_size": "h2",
+            "align": "center",
+            "title_color": "#ffffff",
+            "typography_typography": "custom",
+            "typography_font_family": "Obvia, sans-serif",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 40,
+              "sizes": []
+            },
+            "typography_font_size_tablet": {
+              "unit": "px",
+              "size": 30,
+              "sizes": []
+            },
+            "typography_font_size_mobile": {
+              "unit": "px",
+              "size": 24,
+              "sizes": []
+            },
+            "typography_font_weight": "900",
+            "typography_text_transform": "uppercase",
+            "typography_font_style": "normal",
+            "typography_letter_spacing": {
+              "unit": "px",
+              "size": 2,
+              "sizes": []
+            },
+            "typography_line_height": {
+              "unit": "em",
+              "size": 1.2,
+              "sizes": []
+            },
+            "_margin": {
+              "unit": "px",
+              "top": "0",
+              "right": "0",
+              "bottom": "48",
+              "left": "0",
+              "isLinked": false
+            },
+            "_padding": {
+              "unit": "px",
+              "top": "0",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": true
+            }
+          },
+          "defaultEditSettings": {
+            "defaultEditRoute": "content"
+          },
+          "interactions": {},
+          "elements": [],
+          "widgetType": "heading"
+        },
+        {
+          "id": "m5fak8cb",
+          "elType": "widget",
+          "isInner": false,
+          "isLocked": false,
+          "settings": {
+            "tabs": [
+              {
+                "_id": "yyjo4xhc",
+                "tab_title": "\u00bfNecesito un producto terminado para aplicar?",
+                "tab_content": "<p>No terminado, pero s\u00ed funcional. Necesitas un MVP que se pueda demostrar. Ideas sin producto no aplican.</p>"
+              },
+              {
+                "_id": "2t0vq9ca",
+                "tab_title": "\u00bfC\u00f3mo funciona la votaci\u00f3n?",
+                "tab_content": "<p>Cada persona registrada con correo tiene 1 voto. Se vota al final de todos los pitches. En caso de empate, el panel de expertos decide.</p>"
+              },
+              {
+                "_id": "q8jonmmp",
+                "tab_title": "\u00bfPuedo ir solo como p\u00fablico?",
+                "tab_content": "<p>\u00a1Claro! De hecho, te necesitamos. Tu voto decide qui\u00e9n gana. Reg\u00edstrate con nombre, apellido y correo.</p>"
+              },
+              {
+                "_id": "mygg2fyh",
+                "tab_title": "\u00bfPuedo participar con el mismo proyecto en ambas ediciones?",
+                "tab_content": "<p>\u00a1S\u00ed! Solo seleccionamos 6 proyectos por edici\u00f3n, pero un mismo proyecto puede aplicar y ser seleccionado tanto para la virtual como para la presencial.</p>"
+              },
+              {
+                "_id": "ak8o867y",
+                "tab_title": "\u00bfPuedo pausar mi presentaci\u00f3n o pedir m\u00e1s tiempo?",
+                "tab_content": "<p>No. El deck avanza en autoplay cada 30 segundos. No se pausa, no se negocia. Eso es lo que hace que funcione.</p>"
+              },
+              {
+                "_id": "huppv9t5",
+                "tab_title": "\u00bfQu\u00e9 es el 'Wall of Asks'?",
+                "tab_content": "<p>Despu\u00e9s del evento, publicamos un muro con los ASKs de cada proyecto para que la comunidad pueda conectar y ayudar.</p>"
+              },
+              {
+                "_id": "60o3my4o",
+                "tab_title": "\u00bfHabr\u00e1 transmisi\u00f3n en vivo?",
+                "tab_content": "<p>S\u00ed. La edici\u00f3n virtual se transmite por Google Meet con Ducktape.</p>"
+              }
+            ],
+            "title_color": "#c5ecff",
+            "title_active_color": "#83CE00",
+            "title_typography_typography": "custom",
+            "title_typography_font_size": {
+              "unit": "px",
+              "size": 14,
+              "sizes": []
+            },
+            "title_typography_font_weight": "700",
+            "icon_color": {
+              "color": "#83CE00"
+            },
+            "border_color": {
+              "color": "rgba(255,255,255,0.06)"
+            },
+            "content_color": "#c5ecff"
+          },
+          "defaultEditSettings": {
+            "defaultEditRoute": "content"
+          },
+          "interactions": {},
+          "elements": [],
+          "widgetType": "accordion"
+        }
+      ],
+      "defaultEditSettings": {
+        "defaultEditRoute": "layout"
+      },
+      "interactions": {}
+    }
+  ]
+}

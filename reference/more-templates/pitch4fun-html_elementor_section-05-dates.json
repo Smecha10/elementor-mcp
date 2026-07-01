@@ -1,0 +1,278 @@
+{
+  "type": "elementor",
+  "siteurl": "https://pitch4fun.com/wp-json/",
+  "elements": [
+    {
+      "id": "yhadghhs",
+      "elType": "container",
+      "isInner": false,
+      "isLocked": false,
+      "settings": {
+        "content_width": "full",
+        "flex_direction": "column",
+        "flex_justify_content": "flex-start",
+        "flex_align_items": "center",
+        "flex_gap": {
+          "column": "0",
+          "row": "0",
+          "isLinked": true,
+          "unit": "px"
+        },
+        "padding": {
+          "unit": "px",
+          "top": "80",
+          "right": "48",
+          "bottom": "80",
+          "left": "48",
+          "isLinked": false
+        },
+        "margin": {
+          "unit": "px",
+          "top": "0",
+          "right": "0",
+          "bottom": "0",
+          "left": "0",
+          "isLinked": true
+        },
+        "background_background": "classic",
+        "background_color": "#021024"
+      },
+      "elements": [
+        {
+          "id": "cb5vkxei",
+          "elType": "widget",
+          "isInner": false,
+          "isLocked": false,
+          "settings": {
+            "title": "Fechas Clave para invitados",
+            "header_size": "h2",
+            "align": "center",
+            "title_color": "#ffffff",
+            "typography_typography": "custom",
+            "typography_font_family": "Obvia, sans-serif",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 40,
+              "sizes": []
+            },
+            "typography_font_size_tablet": {
+              "unit": "px",
+              "size": 30,
+              "sizes": []
+            },
+            "typography_font_size_mobile": {
+              "unit": "px",
+              "size": 24,
+              "sizes": []
+            },
+            "typography_font_weight": "900",
+            "typography_text_transform": "uppercase",
+            "typography_font_style": "normal",
+            "typography_letter_spacing": {
+              "unit": "px",
+              "size": 2,
+              "sizes": []
+            },
+            "typography_line_height": {
+              "unit": "em",
+              "size": 1.2,
+              "sizes": []
+            },
+            "_margin": {
+              "unit": "px",
+              "top": "0",
+              "right": "0",
+              "bottom": "8",
+              "left": "0",
+              "isLinked": false
+            },
+            "_padding": {
+              "unit": "px",
+              "top": "0",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": true
+            }
+          },
+          "defaultEditSettings": {
+            "defaultEditRoute": "content"
+          },
+          "interactions": {},
+          "elements": [],
+          "widgetType": "heading"
+        },
+        {
+          "id": "zlv72qzk",
+          "elType": "widget",
+          "isInner": false,
+          "isLocked": false,
+          "settings": {
+            "editor": "<p style=\"text-align:center;color:#00e5ff;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;margin-bottom:48px;\">*V\u00e1lido solo para asistencia al evento</p>",
+            "align": "center",
+            "text_color": "#00e5ff",
+            "typography_typography": "custom",
+            "typography_font_family": "Obvia, sans-serif",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 13,
+              "sizes": []
+            },
+            "typography_font_weight": "400",
+            "typography_line_height": {
+              "unit": "em",
+              "size": 1.6,
+              "sizes": []
+            }
+          },
+          "defaultEditSettings": {
+            "defaultEditRoute": "content"
+          },
+          "interactions": {},
+          "elements": [],
+          "widgetType": "text-editor"
+        },
+        {
+          "id": "oo4b4c1u",
+          "elType": "widget",
+          "isInner": false,
+          "isLocked": false,
+          "settings": {
+            "html": "<div style=\"display:flex;justify-content:center;gap:16px;margin-bottom:48px;\">\n  <button id=\"tab-presencial\" onclick=\"showDate('presencial')\" style=\"padding:12px 32px;border-radius:9999px;font-family:Obvia,sans-serif;font-weight:900;font-size:13px;text-transform:uppercase;letter-spacing:0.15em;background:#83CE00;color:#021024;border:1px solid #83CE00;cursor:pointer;box-shadow:0 0 20px rgba(131,206,0,0.4);\">Presencial</button>\n  <button id=\"tab-virtual\" onclick=\"showDate('virtual')\" style=\"padding:12px 32px;border-radius:9999px;font-family:Obvia,sans-serif;font-weight:900;font-size:13px;text-transform:uppercase;letter-spacing:0.15em;background:transparent;color:#8899aa;border:1px solid rgba(255,255,255,0.1);cursor:pointer;\">Virtual</button>\n</div>\n\n<div id=\"card-presencial\" style=\"max-width:640px;margin:0 auto;border-radius:24px;padding:40px;background:rgba(5,24,51,0.8);backdrop-filter:blur(12px);border:1px solid rgba(131,206,0,0.3);box-shadow:0 0 40px rgba(131,206,0,0.15);position:relative;overflow:hidden;\">\n  <div style=\"position:absolute;right:-40px;bottom:-40px;font-size:192px;opacity:0.1;color:#83CE00;\">\ud83d\udccd</div>\n  <div style=\"display:flex;align-items:center;gap:16px;margin-bottom:40px;position:relative;z-index:1;\">\n    <div style=\"width:56px;height:56px;border-radius:16px;background:rgba(131,206,0,0.2);border:1px solid rgba(131,206,0,0.3);display:flex;align-items:center;justify-content:center;font-size:28px;\">\ud83d\udccd</div>\n    <div>\n      <h3 style=\"font-family:Obvia,sans-serif;font-weight:900;font-size:28px;text-transform:uppercase;color:#fff;margin:0;\">Edici\u00f3n Presencial</h3>\n      <p style=\"font-family:Obvia,sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:0.1em;color:#83CE00;margin:4px 0 0 0;\">Santo Domingo, RD</p>\n    </div>\n  </div>\n  <ul style=\"list-style:none;padding:0;margin:0 0 40px 0;display:flex;flex-direction:column;gap:24px;\">\n    <li style=\"display:flex;align-items:center;gap:16px;font-family:Obvia,sans-serif;font-weight:700;font-size:17px;color:#c5ecff;\">\n      <div style=\"width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:24px;\">\ud83d\udcc5</div>\n      <div><span style=\"display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:#8899aa;margin-bottom:2px;\">Fecha</span>20 de mayo, 2026</div>\n    </li>\n    <li style=\"display:flex;align-items:center;gap:16px;font-family:Obvia,sans-serif;font-weight:700;font-size:17px;color:#c5ecff;\">\n      <div style=\"width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:24px;\">\ud83d\udd56</div>\n      <div><span style=\"display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:#8899aa;margin-bottom:2px;\">Hora</span>7:00 PM</div>\n    </li>\n    <li style=\"display:flex;align-items:center;gap:16px;font-family:Obvia,sans-serif;font-weight:700;font-size:17px;color:#c5ecff;\">\n      <div style=\"width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:24px;\">\ud83d\udccd</div>\n      <div><span style=\"display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:#8899aa;margin-bottom:2px;\">Lugar</span>Velvet Room</div>\n    </li>\n  </ul>\n  <a href=\"https://forms.gle/matdrFatkh6VSshCA\" target=\"_blank\" style=\"display:block;text-align:center;padding:16px 32px;border-radius:16px;font-family:Obvia,sans-serif;font-weight:900;font-size:14px;text-transform:uppercase;letter-spacing:0.15em;background:#83CE00;color:#021024;text-decoration:none;box-shadow:0 0 30px rgba(131,206,0,0.5);\">Registrarme (Presencial)</a>\n</div>\n\n<div id=\"card-virtual\" style=\"max-width:640px;margin:0 auto;border-radius:24px;padding:40px;background:rgba(5,24,51,0.8);backdrop-filter:blur(12px);border:1px solid rgba(0,229,255,0.3);box-shadow:0 0 40px rgba(0,229,255,0.15);position:relative;overflow:hidden;display:none;\">\n  <div style=\"position:absolute;right:-40px;bottom:-40px;font-size:192px;opacity:0.1;color:#00e5ff;\">\ud83c\udf10</div>\n  <div style=\"display:flex;align-items:center;gap:16px;margin-bottom:40px;position:relative;z-index:1;\">\n    <div style=\"width:56px;height:56px;border-radius:16px;background:rgba(0,229,255,0.2);border:1px solid rgba(0,229,255,0.3);display:flex;align-items:center;justify-content:center;font-size:28px;\">\ud83c\udf10</div>\n    <div>\n      <h3 style=\"font-family:Obvia,sans-serif;font-weight:900;font-size:28px;text-transform:uppercase;color:#fff;margin:0;\">Edici\u00f3n Virtual</h3>\n      <p style=\"font-family:Obvia,sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:0.1em;color:#00e5ff;margin:4px 0 0 0;\">Transmisi\u00f3n Online</p>\n    </div>\n  </div>\n  <ul style=\"list-style:none;padding:0;margin:0 0 40px 0;display:flex;flex-direction:column;gap:24px;\">\n    <li style=\"display:flex;align-items:center;gap:16px;font-family:Obvia,sans-serif;font-weight:700;font-size:17px;color:#c5ecff;\">\n      <div style=\"width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:24px;\">\ud83d\udcc5</div>\n      <div><span style=\"display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:#8899aa;margin-bottom:2px;\">Fecha</span>26 de mayo, 2026</div>\n    </li>\n    <li style=\"display:flex;align-items:center;gap:16px;font-family:Obvia,sans-serif;font-weight:700;font-size:17px;color:#c5ecff;\">\n      <div style=\"width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:24px;\">\ud83d\udd56</div>\n      <div><span style=\"display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:#8899aa;margin-bottom:2px;\">Hora</span>7:00 PM (Hora RD)</div>\n    </li>\n    <li style=\"display:flex;align-items:center;gap:16px;font-family:Obvia,sans-serif;font-weight:700;font-size:17px;color:#c5ecff;\">\n      <div style=\"width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:24px;\">\ud83c\udf10</div>\n      <div><span style=\"display:block;font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:#8899aa;margin-bottom:2px;\">Canal</span>Meet + Streaming Ducktape</div>\n    </li>\n  </ul>\n  <a href=\"https://forms.gle/matdrFatkh6VSshCA\" target=\"_blank\" style=\"display:block;text-align:center;padding:16px 32px;border-radius:16px;font-family:Obvia,sans-serif;font-weight:900;font-size:14px;text-transform:uppercase;letter-spacing:0.15em;background:#00e5ff;color:#021024;text-decoration:none;box-shadow:0 0 30px rgba(0,229,255,0.5);\">Registrarme (Virtual)</a>\n</div>\n\n<script>\nfunction showDate(tab){\n  var pc=document.getElementById('card-presencial');\n  var vc=document.getElementById('card-virtual');\n  var pb=document.getElementById('tab-presencial');\n  var vb=document.getElementById('tab-virtual');\n  if(tab==='presencial'){\n    pc.style.display='block';vc.style.display='none';\n    pb.style.background='#83CE00';pb.style.color='#021024';pb.style.boxShadow='0 0 20px rgba(131,206,0,0.4)';\n    vb.style.background='transparent';vb.style.color='#8899aa';vb.style.boxShadow='none';\n  } else {\n    pc.style.display='none';vc.style.display='block';\n    vb.style.background='#00e5ff';vb.style.color='#021024';vb.style.boxShadow='0 0 20px rgba(0,229,255,0.4)';\n    pb.style.background='transparent';pb.style.color='#8899aa';pb.style.boxShadow='none';\n  }\n}\n</script>",
+            "_background_image": {
+              "url": "",
+              "id": "",
+              "size": ""
+            },
+            "_background_video_fallback": {
+              "url": "",
+              "id": "",
+              "size": ""
+            },
+            "_background_slideshow_gallery": [],
+            "_background_hover_image": {
+              "url": "",
+              "id": "",
+              "size": ""
+            },
+            "_background_hover_video_fallback": {
+              "url": "",
+              "id": "",
+              "size": ""
+            },
+            "_background_hover_slideshow_gallery": [],
+            "_mask_image": {
+              "url": "",
+              "id": "",
+              "size": ""
+            },
+            "_title": "",
+            "_flex_grow": 1,
+            "_flex_shrink": 1,
+            "_position": "",
+            "_offset_orientation_h": "start",
+            "_offset_x": {
+              "unit": "px",
+              "size": 0,
+              "sizes": []
+            },
+            "_offset_x_end": {
+              "unit": "px",
+              "size": 0,
+              "sizes": []
+            },
+            "_offset_orientation_v": "start",
+            "_offset_y": {
+              "unit": "px",
+              "size": 0,
+              "sizes": []
+            },
+            "_offset_y_end": {
+              "unit": "px",
+              "size": 0,
+              "sizes": []
+            },
+            "_z_index": "",
+            "_element_id": "",
+            "_css_classes": "",
+            "e_display_conditions": "",
+            "_element_cache": "",
+            "_background_background": "",
+            "_background_color": "",
+            "_background_color_b": "#f2295b",
+            "_background_gradient_type": "linear",
+            "_background_gradient_angle": {
+              "unit": "deg",
+              "size": 180,
+              "sizes": []
+            },
+            "_background_gradient_position": "center center",
+            "_border_border": "",
+            "_border_color": "",
+            "_border_radius": {
+              "unit": "px",
+              "top": "",
+              "right": "",
+              "bottom": "",
+              "left": "",
+              "isLinked": true
+            },
+            "_box_shadow_box_shadow_type": "",
+            "_box_shadow_box_shadow": {
+              "horizontal": 0,
+              "vertical": 0,
+              "blur": 10,
+              "spread": 0,
+              "color": "rgba(0,0,0,0.5)"
+            },
+            "_box_shadow_box_shadow_position": " ",
+            "_border_hover_border": "",
+            "_border_hover_color": "",
+            "_border_radius_hover": {
+              "unit": "px",
+              "top": "",
+              "right": "",
+              "bottom": "",
+              "left": "",
+              "isLinked": true
+            },
+            "_box_shadow_hover_box_shadow_type": "",
+            "_box_shadow_hover_box_shadow": {
+              "horizontal": 0,
+              "vertical": 0,
+              "blur": 10,
+              "spread": 0,
+              "color": "rgba(0,0,0,0.5)"
+            },
+            "_box_shadow_hover_box_shadow_position": " ",
+            "_border_hover_transition": {
+              "unit": "px",
+              "size": "",
+              "sizes": []
+            },
+            "_mask_switch": "",
+            "_mask_shape": "circle",
+            "_mask_size": "contain",
+            "_mask_position": "center center",
+            "_mask_repeat": "no-repeat",
+            "hide_desktop": "",
+            "hide_tablet": "",
+            "hide_mobile": "",
+            "_attributes": "",
+            "custom_css": ""
+          },
+          "defaultEditSettings": {
+            "defaultEditRoute": "content"
+          },
+          "interactions": {},
+          "elements": [],
+          "widgetType": "html"
+        }
+      ],
+      "defaultEditSettings": {
+        "defaultEditRoute": "layout"
+      },
+      "interactions": {}
+    }
+  ]
+}
