@@ -1345,6 +1345,61 @@ function pricingComparison(p: PricingComparisonParams): BlueprintNode {
 // Template registry
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Theme Builder archetypes — use dynamic widgets (site-logo, post-title, etc.)
+// ---------------------------------------------------------------------------
+
+function headerTb(p: Record<string, unknown>): BlueprintNode {
+  const links = (p.links as { text: string; href: string }[]) ?? [];
+  const linkNodes: BlueprintNode[] = links.map((l) => ({
+    type: "button",
+    text: l.text,
+    href: l.href,
+    style: { color: "{colors.text}", background: "transparent", fontWeight: "400", padding: { top: "0.25rem", right: "0.75rem", bottom: "0.25rem", left: "0.75rem" }, hover: { color: "{colors.primary}" } },
+  }));
+  const rightSide: BlueprintNode[] = [...linkNodes];
+  if (p.cta) rightSide.push(primaryButton(p.cta as { text: string; href: string }));
+  const left: BlueprintNode = { type: "flex", direction: "row", style: { alignItems: "center", gap: "0.75rem" }, children: [{ type: "site-logo", props: {} }] };
+  const right: BlueprintNode = { type: "flex", direction: "row", style: { alignItems: "center", gap: "1.5rem" }, children: rightSide };
+  const row: BlueprintNode = { type: "flex", direction: "row", style: { justifyContent: "space-between", alignItems: "center", maxWidth: "1200px", width: "100%", margin: "0 auto", padding: { left: "1.5rem", right: "1.5rem" } }, children: [left, right] };
+  return { type: "section", tag: "header", style: { background: "{colors.bg}", padding: { top: "1rem", bottom: "1rem" }, css: "border-bottom: 1px solid {colors.border};" }, children: [row], motion: motionFor((p.designIntensity as DesignIntensity | undefined) ?? "standard", { sticky: { position: "top", offset: 0 } }) };
+}
+
+function footerTb(p: Record<string, unknown>): BlueprintNode {
+  const cols = (p.columns as { heading?: string; links?: { text: string; href: string }[] }[]) ?? [];
+  const colNodes: BlueprintNode[] = cols.map((c) => ({
+    type: "flex",
+    direction: "column",
+    style: { gap: "0.75rem", css: "flex: 1 1 200px;" },
+    children: [
+      { type: "heading", level: 3, text: c.heading ?? "", style: { fontSize: "1.125rem", fontWeight: "600", color: "{colors.onPrimary}" } },
+      ...(c.links ?? []).map((l) => ({
+        type: "button" as const,
+        text: l.text,
+        href: l.href,
+        style: { color: "{colors.onPrimary}", background: "transparent", fontWeight: "400", padding: { top: "0.1rem", right: "0.1rem", bottom: "0.1rem", left: "0.1rem" }, hover: { color: "{colors.accent}" } },
+      })),
+    ],
+  }));
+  const row: BlueprintNode = { type: "flex", direction: "row", style: { gap: "3rem", flexWrap: "wrap", maxWidth: "1200px", width: "100%", margin: "0 auto", padding: { left: "1.5rem", right: "1.5rem" } }, children: colNodes };
+  const bottom: BlueprintNode = { type: "flex", direction: "row", style: { justifyContent: "space-between", alignItems: "center", maxWidth: "1200px", width: "100%", margin: "0 auto", padding: { left: "1.5rem", right: "1.5rem" } }, children: [
+    { type: "text", text: p.copyright as string ?? "© ${YEAR} ${SITE}", style: { color: "{colors.onPrimary}", css: "opacity: 0.7;" } },
+    { type: "social-icons", props: { social_icon_list: (p.social as { icon: string; url: string }[]) ?? [] } },
+  ] };
+  return { type: "section", tag: "footer", style: { background: "{colors.primary}", padding: { top: "3rem", bottom: "2rem" } }, children: [{ type: "flex", direction: "column", style: { gap: "2rem" }, children: [row, bottom] }] };
+}
+
+function singlePost(p: Record<string, unknown>): BlueprintNode {
+  const meta: BlueprintNode = { type: "post-info", props: { sections: p.metaSections ?? ["date", "author", "categories"] } };
+  const heading: BlueprintNode = { type: "post-title", props: { html_tag: "h1" }, style: { fontSize: "2.5rem", fontWeight: "700", color: "{colors.primary}", lineHeight: "1.1" } };
+  const img: BlueprintNode = { type: "featured-image", props: { image_size: "large" }, style: { borderRadius: "{radius.lg}", marginBottom: "2rem" } };
+  const content: BlueprintNode = { type: "post-content", props: {} };
+  const nav: BlueprintNode = { type: "post-navigation", props: {} };
+  const author: BlueprintNode = { type: "author-box", props: {} };
+  const wrap: BlueprintNode = { type: "flex", direction: "column", style: { gap: "1.5rem", maxWidth: "800px", margin: "0 auto", padding: { left: "1.5rem", right: "1.5rem" } }, children: [meta, heading, img, content, nav, author] };
+  return { type: "section", style: { padding: { top: "3rem", bottom: "4rem" } }, children: [wrap] };
+}
+
 export const TEMPLATES: Record<string, (params: Record<string, unknown>) => BlueprintNode> = {
   hero,
   "hero-split": heroSplit,
@@ -1381,6 +1436,10 @@ export const TEMPLATES: Record<string, (params: Record<string, unknown>) => Blue
   "editorial-split": editorialSplit,
   "showcase-carousel": showcaseCarousel,
   "pricing-comparison": pricingComparison,
+  // Theme Builder archetypes
+  "header-tb": headerTb,
+  "footer-tb": footerTb,
+  "single-post": singlePost,
 };
 
 export interface TemplateInfo {
@@ -1588,6 +1647,24 @@ export const TEMPLATE_INFO: TemplateInfo[] = [
     description: "Three-column pricing comparison with plan name, price, period, feature checkmarks, CTA. Highlighted plan gets ribbon badge and elevated shadow.",
     params: "eyebrow?, heading?, plans: [{ name, price, period?, features: [string], cta? {text,href}, ribbon?, highlighted? (bool) }]",
     example: { heading: "Simple pricing", plans: [{ name: "Starter", price: "$19", period: "/mo", features: ["Basic features", "Email support"], cta: { text: "Get started", href: "/signup" } }, { name: "Pro", price: "$49", period: "/mo", features: ["All features", "Priority support", "API access"], ribbon: "Popular", highlighted: true, cta: { text: "Choose Pro", href: "/signup" } }, { name: "Enterprise", price: "$99", period: "/mo", features: ["Everything", "Dedicated support", "Custom integrations"], cta: { text: "Contact us", href: "/contact" } }] },
+  },
+  {
+    name: "header-tb",
+    description: "Theme Builder header with site-logo, nav links, and optional CTA. Uses dynamic site-logo widget. Import as a header template type.",
+    params: "links: [{ text, href }], cta? {text,href}, designIntensity? (subtle|moderate|dynamic)",
+    example: { links: [{ text: "Home", href: "/" }, { text: "About", href: "/about" }, { text: "Contact", href: "/contact" }], cta: { text: "Get started", href: "/signup" } },
+  },
+  {
+    name: "footer-tb",
+    description: "Theme Builder footer with link columns, social icons, and copyright. Uses dynamic widgets. Import as a footer template type.",
+    params: "columns: [{ heading, links: [{text,href}] }], copyright?, social? [{icon,url}]",
+    example: { columns: [{ heading: "Company", links: [{ text: "About", href: "/about" }, { text: "Careers", href: "/careers" }] }, { heading: "Resources", links: [{ text: "Blog", href: "/blog" }, { text: "Docs", href: "/docs" }] }], copyright: "© 2026 Acme Inc." },
+  },
+  {
+    name: "single-post",
+    description: "Theme Builder single post template with post-info, post-title, featured-image, post-content, post-navigation, and author-box. Import as a single template type.",
+    params: "metaSections? [string] — which meta items to show (date, author, categories, tags)",
+    example: { metaSections: ["date", "author", "categories"] },
   },
 ];
 

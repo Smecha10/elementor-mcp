@@ -857,7 +857,19 @@ function compileClassicNode(node: BlueprintNode, ctx?: CompileCtx): ClassicEleme
     case "slides":
     case "carousel":
     case "portfolio":
-    case "call-to-action": {
+    case "call-to-action":
+    case "post-title":
+    case "post-excerpt":
+    case "post-content":
+    case "featured-image":
+    case "post-info":
+    case "site-logo":
+    case "site-title":
+    case "page-title":
+    case "author-box":
+    case "search-bar":
+    case "breadcrumbs":
+    case "post-navigation": {
       // Classic Pro widgets: flat settings, no $$type
       const settings = normalizeClassicSettings({
         ...(node.props ?? {}),

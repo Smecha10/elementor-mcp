@@ -654,7 +654,19 @@ export function compileNode(node: BlueprintNode, ctx?: CompileCtx): ElementNode 
     case "slides":
     case "carousel":
     case "portfolio":
-    case "call-to-action": {
+    case "call-to-action":
+    case "post-title":
+    case "post-excerpt":
+    case "post-content":
+    case "featured-image":
+    case "post-info":
+    case "site-logo":
+    case "site-title":
+    case "page-title":
+    case "author-box":
+    case "search-bar":
+    case "breadcrumbs":
+    case "post-navigation": {
       const settings = normalizeClassicSettings({
         ...(CLASSIC_DEFAULTS[info.maps_to] ?? {}),
         ...(node.props ?? {}),
@@ -687,6 +699,19 @@ const CLASSIC_DEFAULTS: Record<string, Record<string, unknown>> = {
   "media-carousel": { images: [] },
   portfolio: {},
   "call-to-action": {},
+  // Theme Builder defaults
+  "post-title": { html_tag: "h1" },
+  "post-excerpt": {},
+  "post-content": {},
+  "featured-image": {},
+  "post-info": { sections: [] },
+  "site-logo": {},
+  "site-title": { html_tag: "h1" },
+  "page-title": { html_tag: "h1" },
+  "author-box": {},
+  "search-bar": {},
+  "breadcrumbs": {},
+  "post-navigation": {},
 };
 
 /**

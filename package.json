@@ -1,7 +1,7 @@
 {
   "name": "@smecha10/elementor-mcp",
-  "version": "0.5.0",
-  "description": "MCP server for Elementor WordPress — compile blueprints into import-ready Elementor v4 JSON with 27 templates, dual format output, motion effects, and schema learning.",
+  "version": "0.6.0",
+  "description": "MCP server for Elementor WordPress \u2014 compile blueprints into import-ready Elementor v4 JSON with 30 templates, 51 widgets, dual format output, motion effects, Theme Builder support, and schema learning.",
   "type": "module",
   "bin": {
     "elementor-mcp": "dist/server.js"
