@@ -1,7 +1,7 @@
 {
-  "name": "elementor-mcp",
+  "name": "@smecha10/elementor-mcp",
   "version": "0.5.0",
-  "description": "MCP server that compiles a friendly blueprint into import-ready Elementor v4 (Atomic Widgets) JSON.",
+  "description": "MCP server for Elementor WordPress — compile blueprints into import-ready Elementor v4 JSON with 27 templates, dual format output, motion effects, and schema learning.",
   "type": "module",
   "bin": {
     "elementor-mcp": "dist/server.js"
@@ -16,6 +16,39 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "keywords": [
+    "mcp",
+    "elementor",
+    "wordpress",
+    "page-builder",
+    "ai",
+    "model-context-protocol",
+    "blueprint",
+    "website-builder",
+    "atomic-widgets",
+    "elementor-v4"
+  ],
+  "author": "Smecha10",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Smecha10/elementor-mcp.git"
+  },
+  "homepage": "https://github.com/Smecha10/elementor-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/Smecha10/elementor-mcp/issues"
+  },
+  "files": [
+    "dist/",
+    "docs/",
+    "examples/",
+    "reference/",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",
