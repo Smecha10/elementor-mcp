@@ -666,7 +666,15 @@ export function compileNode(node: BlueprintNode, ctx?: CompileCtx): ElementNode 
     case "author-box":
     case "search-bar":
     case "breadcrumbs":
-    case "post-navigation": {
+    case "post-navigation":
+    case "off-canvas":
+    case "media-carousel":
+    case "hotspot":
+    case "code-highlight":
+    case "video-playlist":
+    case "text-path":
+    case "link-in-bio":
+    case "share-buttons": {
       const settings = normalizeClassicSettings({
         ...(CLASSIC_DEFAULTS[info.maps_to] ?? {}),
         ...(node.props ?? {}),
@@ -696,7 +704,6 @@ const CLASSIC_DEFAULTS: Record<string, Record<string, unknown>> = {
   rating: {},
   "animated-headline": { before_text: "This is", highlighted_text: "Amazing", rotating_text: "" },
   slides: { slides: [] },
-  "media-carousel": { images: [] },
   portfolio: {},
   "call-to-action": {},
   // Theme Builder defaults
@@ -712,6 +719,15 @@ const CLASSIC_DEFAULTS: Record<string, Record<string, unknown>> = {
   "search-bar": {},
   "breadcrumbs": {},
   "post-navigation": {},
+  // Interactive/media pro widgets
+  "off-canvas": { content: "", position: "start", animation: "fade" },
+  "media-carousel": { slides: [], images: [] },
+  "hotspot": { hotspots: [], image: {} },
+  "code-highlight": { code: "", language: "markup" },
+  "video-playlist": { videos: [] },
+  "text-path": { text: "", path: "curve" },
+  "link-in-bio": { links: [], avatar: {} },
+  "share-buttons": { networks: ["facebook", "twitter", "linkedin"] },
 };
 
 /**
