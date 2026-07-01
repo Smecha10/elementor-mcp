@@ -322,6 +322,81 @@ interface MapSectionParams {
 }
 
 // ---------------------------------------------------------------------------
+// New premium template parameter types
+// ---------------------------------------------------------------------------
+
+interface HeroAsymmetricParams {
+  eyebrow?: string;
+  heading?: string;
+  text?: string;
+  primaryCta?: { text: string; href?: string };
+  secondaryCta?: { text: string; href?: string };
+  image?: string;
+  imageAlt?: string;
+  imageSide?: "left" | "right";
+}
+
+interface HeroFullscreenParams {
+  heading?: string;
+  text?: string;
+  cta?: { text: string; href?: string };
+  backgroundType?: "gradient" | "image";
+  backgroundImage?: string;
+  overlayColor?: string;
+  overlayOpacity?: number;
+}
+
+interface BentoGridParams {
+  eyebrow?: string;
+  heading?: string;
+  items?: Array<{
+    title?: string;
+    text?: string;
+    icon?: string;
+    image?: string;
+    span?: number;
+    highlight?: boolean;
+  }>;
+}
+
+interface EditorialSplitParams {
+  eyebrow?: string;
+  heading?: string;
+  text?: string;
+  image?: string;
+  imageAlt?: string;
+  sections?: Array<{
+    heading?: string;
+    text?: string;
+    image?: string;
+  }>;
+}
+
+interface ShowcaseCarouselParams {
+  slides?: Array<{
+    image?: string;
+    heading?: string;
+    text?: string;
+    cta?: { text: string; href?: string };
+  }>;
+  autoplay?: boolean;
+}
+
+interface PricingComparisonParams {
+  eyebrow?: string;
+  heading?: string;
+  plans?: Array<{
+    name?: string;
+    price?: string;
+    period?: string;
+    features?: string[];
+    cta?: { text: string; href?: string };
+    ribbon?: string;
+    highlighted?: boolean;
+  }>;
+}
+
+// ---------------------------------------------------------------------------
 // Templates
 // ---------------------------------------------------------------------------
 
@@ -333,15 +408,17 @@ function hero(p: HeroParams): BlueprintNode {
     level: 1,
     text: p.heading ?? "Headline",
     style: { fontSize: "3rem", fontWeight: "700", color: "{colors.primary}", lineHeight: "1.1", mobile: { fontSize: "2rem" }, ...(centered ? { textAlign: "center" } : {}) },
+    motion: { entrance: "fadeInUp", entranceDelay: 0.2 },
   };
   const sub: BlueprintNode = {
     type: "text",
     text: p.text ?? "",
     style: { fontSize: "1.125rem", color: "{colors.muted}", maxWidth: "60ch", ...(centered ? { textAlign: "center" } : {}) },
+    motion: { entrance: "fadeInUp", entranceDelay: 0.3 },
   };
   const ctas: BlueprintNode[] = [];
-  if (p.primaryCta) ctas.push(primaryButton(p.primaryCta));
-  if (p.secondaryCta) ctas.push(ghostButton(p.secondaryCta));
+  if (p.primaryCta) ctas.push({ ...primaryButton(p.primaryCta), motion: { entrance: "fadeInUp", entranceDelay: 0.4 } });
+  if (p.secondaryCta) ctas.push({ ...ghostButton(p.secondaryCta), motion: { entrance: "fadeInUp", entranceDelay: 0.4 } });
   const ctaRow: BlueprintNode = { type: "flex", direction: "row", style: { gap: "1rem", flexWrap: "wrap", ...(centered ? { justifyContent: "center" } : {}) }, children: ctas };
   const copy: BlueprintNode = {
     type: "flex",
@@ -350,7 +427,7 @@ function hero(p: HeroParams): BlueprintNode {
     children: [heading, ...(p.text ? [sub] : []), ...(ctas.length ? [ctaRow] : [])],
   };
   if (p.image) {
-    const img: BlueprintNode = { type: "image", src: p.image, style: { borderRadius: "{radius.lg}", boxShadow: "{shadow.card}", width: "100%" } };
+    const img: BlueprintNode = { type: "image", src: p.image, style: { borderRadius: "{radius.lg}", boxShadow: "{shadow.card}", width: "100%" }, motion: { entrance: "zoomIn", entranceDelay: 0.2 } };
     return section([
       {
         type: "flex",
@@ -363,7 +440,7 @@ function hero(p: HeroParams): BlueprintNode {
   return section([container([copy], { alignItems: "center" })], { padding: { top: "5rem", bottom: "5rem" } });
 }
 
-function featureCard(item: { title?: string; text?: string; icon?: string }): BlueprintNode {
+function featureCard(item: { title?: string; text?: string; icon?: string }, index: number = 0): BlueprintNode {
   const kids: BlueprintNode[] = [];
   if (item.icon) kids.push({ type: "svg", src: item.icon, style: { width: "40px" } });
   kids.push({ type: "heading", level: 3, text: item.title ?? "", style: { fontSize: "1.5rem", fontWeight: "600", color: "{colors.primary}" } });
@@ -373,6 +450,7 @@ function featureCard(item: { title?: string; text?: string; icon?: string }): Bl
     direction: "column",
     style: { gap: "0.75rem", background: "{colors.bg}", padding: "2rem", borderRadius: "{radius.md}", boxShadow: "{shadow.card}", css: "flex: 1 1 280px;" },
     children: kids,
+    motion: { entrance: "fadeInUp", entranceDelay: 0.1 * index, hover: "grow" },
   };
 }
 
@@ -380,14 +458,14 @@ function featureGrid(p: FeatureGridParams): BlueprintNode {
   const head: BlueprintNode[] = [];
   if (p.heading) head.push(sectionHeading(p.heading));
   if (p.subheading) head.push({ type: "text", text: p.subheading, style: { color: "{colors.muted}", textAlign: "center", maxWidth: "60ch", margin: "0 auto" } });
-  const grid: BlueprintNode = { type: "flex", direction: "row", style: { gap: "2rem", flexWrap: "wrap", mobile: { flexDirection: "column" } }, children: (p.items ?? []).map(featureCard) };
+  const grid: BlueprintNode = { type: "flex", direction: "row", style: { gap: "2rem", flexWrap: "wrap", mobile: { flexDirection: "column" } }, children: (p.items ?? []).map((item, i) => featureCard(item, i)) };
   return section([container([...head, grid], { gap: "2.5rem" })], { background: "{colors.surface}" });
 }
 
 function ctaBand(p: CtaBandParams): BlueprintNode {
-  const kids: BlueprintNode[] = [{ type: "heading", level: 2, text: p.heading ?? "", style: { fontSize: "2.25rem", fontWeight: "700", color: "{colors.onPrimary}", textAlign: "center" } }];
-  if (p.text) kids.push({ type: "text", text: p.text, style: { color: "{colors.onPrimary}", textAlign: "center", maxWidth: "60ch", css: "opacity: 0.9;" } });
-  if (p.cta) kids.push({ type: "button", text: p.cta.text, href: p.cta.href, style: { color: "{colors.primary}", background: "{colors.bg}", fontWeight: "700", padding: { top: "1rem", right: "2.5rem", bottom: "1rem", left: "2.5rem" }, borderRadius: "{radius.md}" } });
+  const kids: BlueprintNode[] = [{ type: "heading", level: 2, text: p.heading ?? "", style: { fontSize: "2.25rem", fontWeight: "700", color: "{colors.onPrimary}", textAlign: "center" }, motion: { entrance: "fadeInUp", entranceDelay: 0.2 } }];
+  if (p.text) kids.push({ type: "text", text: p.text, style: { color: "{colors.onPrimary}", textAlign: "center", maxWidth: "60ch", css: "opacity: 0.9;" }, motion: { entrance: "fadeInUp", entranceDelay: 0.3 } });
+  if (p.cta) kids.push({ type: "button", text: p.cta.text, href: p.cta.href, style: { color: "{colors.primary}", background: "{colors.bg}", fontWeight: "700", padding: { top: "1rem", right: "2.5rem", bottom: "1rem", left: "2.5rem" }, borderRadius: "{radius.md}" }, motion: { entrance: "fadeInUp", entranceDelay: 0.3 } });
   return section([
     { type: "flex", direction: "column", style: { gap: "1.5rem", alignItems: "center", maxWidth: "800px", width: "100%", margin: "0 auto", padding: { left: "1.5rem", right: "1.5rem" } }, children: kids },
   ], { background: "{colors.primary}" });
@@ -402,17 +480,18 @@ function testimonials(p: TestimonialsParams): BlueprintNode {
     title: it.title ?? "",
     image: { url: it.image ?? "" },
   }));
-  const widget: BlueprintNode = { type: "reviews", props: { slides } };
+  const widget: BlueprintNode = { type: "reviews", props: { slides }, motion: { entrance: "fadeIn", entranceDelay: 0.2 } };
   return section([container([...head, widget], { gap: "2rem" })]);
 }
 
 function pricing(p: PricingParams): BlueprintNode {
   const head: BlueprintNode[] = [];
   if (p.heading) head.push(sectionHeading(p.heading));
-  const cards = (p.plans ?? []).map((pl) => ({
+  const cards = (p.plans ?? []).map((pl, i) => ({
     type: "flex" as const,
     direction: "column" as const,
     style: { css: "flex: 1 1 300px;" },
+    motion: { entrance: "fadeInUp", entranceDelay: 0.15 * i, hover: "float" },
     children: [
       {
         type: "price-table" as const,
@@ -435,8 +514,8 @@ function pricing(p: PricingParams): BlueprintNode {
 function faq(p: FaqParams): BlueprintNode {
   const head: BlueprintNode[] = [];
   if (p.heading) head.push(sectionHeading(p.heading));
-  const tabs = (p.items ?? []).map((it) => ({ label: it.q ?? "", children: [{ type: "text" as const, text: it.a ?? "", style: { color: "{colors.muted}" } }] }));
-  const tabsNode: BlueprintNode = { type: "tabs", tabs };
+  const tabs = (p.items ?? []).map((it, i) => ({ label: it.q ?? "", children: [{ type: "text" as const, text: it.a ?? "", style: { color: "{colors.muted}" }, motion: { entrance: "fadeInUp", entranceDelay: 0.1 * i } }] }));
+  const tabsNode: BlueprintNode = { type: "tabs", tabs, motion: { entrance: "fadeInUp", entranceDelay: 0.2 } };
   return section([container([...head, tabsNode], { gap: "2rem", maxWidth: "800px" })]);
 }
 
@@ -462,7 +541,7 @@ function contact(p: ContactParams): BlueprintNode {
   });
   const head: BlueprintNode[] = [];
   if (p.heading) head.push(sectionHeading(p.heading));
-  const form: BlueprintNode = { type: "form", name: p.formName ?? "Contact", ...(p.email ? { email: p.email } : {}), style: { gap: "1rem", maxWidth: "560px", width: "100%", margin: "0 auto" }, children: formChildren };
+  const form: BlueprintNode = { type: "form", name: p.formName ?? "Contact", ...(p.email ? { email: p.email } : {}), style: { gap: "1rem", maxWidth: "560px", width: "100%", margin: "0 auto" }, children: formChildren, motion: { entrance: "fadeInUp", entranceDelay: 0.2 } };
   return section([container([...head, form], { gap: "2rem" })]);
 }
 
@@ -479,7 +558,7 @@ function navbar(p: NavbarParams): BlueprintNode {
     style: { justifyContent: "space-between", alignItems: "center", gap: "2rem", maxWidth: "1200px", width: "100%", margin: "0 auto", padding: { left: "1.5rem", right: "1.5rem" }, mobile: { flexDirection: "column" } },
     children: rowKids,
   };
-  return { type: "section", tag: "header", style: { background: "{colors.bg}", padding: { top: "1rem", bottom: "1rem" }, css: "border-bottom: 1px solid {colors.border};" }, children: [row] };
+  return { type: "section", tag: "header", style: { background: "{colors.bg}", padding: { top: "1rem", bottom: "1rem" }, css: "border-bottom: 1px solid {colors.border};" }, children: [row], motion: { sticky: { position: "top", offset: 0 } } };
 }
 
 function footer(p: FooterParams): BlueprintNode {
@@ -521,14 +600,14 @@ function heroSplit(p: HeroSplitParams): BlueprintNode {
   if (p.primaryCta) ctas.push(primaryButton(p.primaryCta));
   if (p.secondaryCta) ctas.push(ghostButton(p.secondaryCta));
   if (ctas.length) copyKids.push({ type: "flex", direction: "row", style: { gap: "1rem", flexWrap: "wrap", marginTop: "0.5rem" }, children: ctas });
-  const copy: BlueprintNode = { type: "flex", direction: "column", style: { gap: "1.25rem", css: "flex: 1 1 54%;" }, children: copyKids };
+  const copy: BlueprintNode = { type: "flex", direction: "column", style: { gap: "1.25rem", css: "flex: 1 1 54%;" }, children: copyKids, motion: { entrance: "fadeInLeft", entranceDelay: 0.2 } };
   const media: BlueprintNode = p.image
     ? {
         type: "section",
         style: { background: "{colors.surfaceAlt}", borderRadius: "{radius.lg}", padding: "1rem", css: "flex: 1 1 42%;" },
-        children: [{ type: "image", src: p.image, alt: p.imageAlt ?? p.heading ?? "", style: { borderRadius: "{radius.md}", boxShadow: "{shadow.card}", width: "100%", css: "display:block;" } }],
+        children: [{ type: "image", src: p.image, alt: p.imageAlt ?? p.heading ?? "", style: { borderRadius: "{radius.md}", boxShadow: "{shadow.card}", width: "100%", css: "display:block;" }, motion: { entrance: "fadeInRight", entranceDelay: 0.3 } }],
       }
-    : { type: "section", style: { background: "{colors.surfaceAlt}", borderRadius: "{radius.lg}", css: "flex: 1 1 42%; min-height: 320px;" }, children: [] };
+    : { type: "section", style: { background: "{colors.surfaceAlt}", borderRadius: "{radius.lg}", css: "flex: 1 1 42%; min-height: 320px;" }, children: [], motion: { entrance: "fadeInRight", entranceDelay: 0.3 } };
   return section([
     {
       type: "flex",
@@ -560,6 +639,7 @@ function featureZigzag(p: FeatureZigzagParams): BlueprintNode {
       direction: "row",
       style: { gap: "3rem", alignItems: "center", flexDirection: reverse ? "row-reverse" : "row", mobile: { flexDirection: "column" } },
       children: [media, textCol],
+      motion: { entrance: i % 2 === 0 ? "fadeInLeft" : "fadeInRight", entranceDelay: 0.2 },
     };
   });
   return section([container([...head, ...rows], { gap: "4rem" })]);
@@ -570,7 +650,7 @@ function bento(p: BentoParams): BlueprintNode {
   const head: BlueprintNode[] = [];
   if (p.eyebrow) head.push(eyebrow(p.eyebrow, true));
   if (p.heading) head.push(sectionHeading(p.heading));
-  const cards = (p.items ?? []).map((it) => {
+  const cards = (p.items ?? []).map((it, i) => {
     const wide = (it.span ?? 1) >= 2;
     const kids: BlueprintNode[] = [];
     if (it.icon) kids.push({ type: "svg", src: it.icon, style: { width: "40px" } });
@@ -589,6 +669,7 @@ function bento(p: BentoParams): BlueprintNode {
         css: `flex: ${wide ? "2 1 420px" : "1 1 260px"}; min-height: ${wide ? "240px" : "200px"};${it.highlight ? " color: {colors.onPrimary};" : ""}`,
       },
       children: kids,
+      motion: { entrance: "fadeInUp", entranceDelay: 0.1 * i, hover: "grow" },
     };
   });
   const grid: BlueprintNode = { type: "flex", direction: "row", style: { gap: "1.25rem", flexWrap: "wrap", alignItems: "stretch", mobile: { flexDirection: "column" } }, children: cards };
@@ -597,10 +678,11 @@ function bento(p: BentoParams): BlueprintNode {
 
 /** Big stat row — social proof through numbers. */
 function stats(p: StatsParams): BlueprintNode {
-  const items = (p.items ?? []).map((it) => ({
+  const items = (p.items ?? []).map((it, i) => ({
     type: "flex" as const,
     direction: "column" as const,
     style: { gap: "0.25rem", alignItems: "center", css: "flex: 1 1 180px;" },
+    motion: { entrance: "zoomIn", entranceDelay: 0.15 * i },
     children: [
       { type: "heading" as const, level: 2, text: String(it.value ?? ""), style: { fontSize: "2.75rem", fontWeight: "700", color: "{colors.accent}", textAlign: "center" } },
       { type: "text" as const, text: it.label ?? "", style: { color: "{colors.muted}", textAlign: "center", fontWeight: "600" } },
@@ -620,7 +702,7 @@ function logos(p: LogosParams): BlueprintNode {
     type: "flex",
     direction: "row",
     style: { gap: "2.5rem", flexWrap: "wrap", justifyContent: "center", alignItems: "center" },
-    children: (p.logos ?? []).map((l) => ({ type: "image", src: typeof l === "string" ? l : l.src, alt: typeof l === "string" ? "" : l.alt ?? "", style: { css: "height: 34px; width: auto; opacity: 0.6; filter: grayscale(100%);" } })),
+    children: (p.logos ?? []).map((l, i) => ({ type: "image", src: typeof l === "string" ? l : l.src, alt: typeof l === "string" ? "" : l.alt ?? "", style: { css: "height: 34px; width: auto; opacity: 0.6; filter: grayscale(100%);" }, motion: { entrance: "fadeIn", entranceDelay: 0.1 * i } })),
   };
   return section([container([...line, row], { gap: "1.5rem", alignItems: "center" })], { padding: { top: "2.5rem", bottom: "2.5rem" } });
 }
@@ -634,6 +716,7 @@ function steps(p: StepsParams): BlueprintNode {
     type: "flex" as const,
     direction: "column" as const,
     style: { gap: "0.75rem", css: "flex: 1 1 240px;" },
+    motion: { entrance: "fadeInUp", entranceDelay: 0.15 * i },
     children: [
       {
         type: "heading" as const,
@@ -672,18 +755,22 @@ function heroVideo(p: HeroVideoParams): BlueprintNode {
   const heading: BlueprintNode = {
     type: "heading", level: 1, text: p.heading ?? "Headline",
     style: { fontSize: "3.5rem", fontWeight: "700", color: "#FFFFFF", textAlign: "center", lineHeight: "1.1", mobile: { fontSize: "2.2rem" } },
+    motion: { entrance: "fadeInUp", entranceDelay: 0.2 },
   };
   const sub: BlueprintNode = p.text ? {
     type: "text", text: p.text,
     style: { fontSize: "1.25rem", color: "#FFFFFF", textAlign: "center", maxWidth: "60ch", css: "opacity: 0.9;" },
+    motion: { entrance: "fadeInUp", entranceDelay: 0.3 },
   } : { type: "text", text: "", style: {} };
   const ctas: BlueprintNode[] = [];
   if (p.primaryCta) ctas.push({ ...primaryButton(p.primaryCta), style: { ...primaryButton(p.primaryCta).style, background: "{colors.accent}", color: "#fff" } });
   if (p.secondaryCta) ctas.push({ ...ghostButton(p.secondaryCta), style: { ...ghostButton(p.secondaryCta).style, color: "#fff", css: "border: 2px solid rgba(255,255,255,0.4);" } });
   const ctaRow: BlueprintNode = { type: "flex", direction: "row", style: { gap: "1rem", flexWrap: "wrap", justifyContent: "center" }, children: ctas };
-  return section([
+  const sectionNode = section([
     { type: "flex", direction: "column", style: { gap: "1.5rem", alignItems: "center", maxWidth: "800px", width: "100%", margin: "0 auto", padding: { left: "1.5rem", right: "1.5rem" } }, children: [heading, sub, ...(ctas.length ? [ctaRow] : [])] },
   ], { padding: { top: "7rem", bottom: "7rem" }, ...bgStyle });
+  sectionNode.motion = { scroll: { translateY: { direction: "up", speed: 4 } } };
+  return sectionNode;
 }
 
 /** 2. Portfolio/gallery grid with filterable categories. */
@@ -692,10 +779,11 @@ function portfolioGrid(p: PortfolioGridParams): BlueprintNode {
   if (p.heading) head.push(sectionHeading(p.heading));
   const cols = p.columns ?? 3;
   const gap = p.gap ?? "1.5rem";
-  const cards = (p.items ?? []).map((it) => ({
+  const cards = (p.items ?? []).map((it, i) => ({
     type: "flex" as const,
     direction: "column" as const,
-    style: { gap: "0.75rem", css: `flex: 1 1 ${Math.floor(100 / cols)}%;`, background: "{colors.surface}", borderRadius: "{radius.md}", overflow: "hidden", boxShadow: "{shadow.card}" },
+    style: { gap: "0.75rem", css: `flex: 1 1 ${Math.floor(100 / cols)}%;`, background: "{colors.surface}", borderRadius: "{radius.md}", overflow: "hidden", boxShadow: "{shadow.card}", hover: { css: "transform: scale(1.05);" } },
+    motion: { entrance: "fadeInUp", entranceDelay: 0.1 * i },
     children: [
       ...(it.image ? [{ type: "image" as const, src: it.image, alt: it.title ?? "", style: { width: "100%", css: "height: 240px; object-fit: cover;" } }] : []),
       { type: "flex" as const, direction: "column" as const, style: { gap: "0.5rem", padding: "1.25rem" }, children: [
@@ -714,10 +802,11 @@ function teamSection(p: TeamSectionParams): BlueprintNode {
   const head: BlueprintNode[] = [];
   if (p.heading) head.push(sectionHeading(p.heading));
   const cols = p.columns ?? 3;
-  const cards = (p.members ?? []).map((m) => ({
+  const cards = (p.members ?? []).map((m, i) => ({
     type: "flex" as const,
     direction: "column" as const,
     style: { gap: "0.75rem", alignItems: "center", css: `flex: 1 1 ${Math.floor(100 / cols)}%;`, background: "{colors.surface}", padding: "2rem", borderRadius: "{radius.md}", boxShadow: "{shadow.card}", textAlign: "center" },
+    motion: { entrance: "fadeInUp", entranceDelay: 0.1 * i, hover: "lift" },
     children: [
       ...(m.image ? [{ type: "image" as const, src: m.image, alt: m.name ?? "", style: { width: "120px", height: "120px", borderRadius: "{radius.pill}", css: "object-fit: cover;" } }] : []),
       { type: "heading" as const, level: 3, text: m.name ?? "", style: { fontSize: "1.25rem", fontWeight: "600", color: "{colors.primary}", textAlign: "center" } },
@@ -738,11 +827,12 @@ function teamSection(p: TeamSectionParams): BlueprintNode {
 function timeline(p: TimelineParams): BlueprintNode {
   const head: BlueprintNode[] = [];
   if (p.heading) head.push(sectionHeading(p.heading));
-  const items = (p.items ?? []).map((it) => {
+  const items = (p.items ?? []).map((it, i) => {
     const isLeft = (it.side ?? "left") === "left";
     const card: BlueprintNode = {
       type: "flex", direction: "column",
       style: { gap: "0.5rem", background: "{colors.surface}", padding: "1.5rem", borderRadius: "{radius.md}", boxShadow: "{shadow.card}", css: `flex: 1 1 45%; ${isLeft ? "" : "margin-left: auto;"}` },
+      motion: { entrance: "fadeInUp", entranceDelay: 0.15 * i },
       children: [
         ...(it.date ? [{ type: "text" as const, text: it.date, style: { fontSize: "0.8125rem", fontWeight: "700", color: "{colors.accent}", textTransform: "uppercase", letterSpacing: "0.05em" } }] : []),
         { type: "heading" as const, level: 3, text: it.title ?? "", style: { fontSize: "1.25rem", fontWeight: "600", color: "{colors.primary}" } },
@@ -762,10 +852,11 @@ function serviceCards(p: ServiceCardsParams): BlueprintNode {
   const cols = p.columns ?? 3;
   const hoverEffect = p.hoverEffect ?? "lift";
   const hoverCss = hoverEffect === "grow" ? "transform: scale(1.05);" : hoverEffect === "float" ? "transform: translateY(-8px);" : "transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.12);";
-  const cards = (p.services ?? []).map((s) => ({
+  const cards = (p.services ?? []).map((s, i) => ({
     type: "flex" as const,
     direction: "column" as const,
-    style: { gap: "1rem", css: `flex: 1 1 ${Math.floor(100 / cols)}%; background: "{colors.surface}"; padding: "2rem"; border-radius: "{radius.md}"; boxShadow: "{shadow.card}"; transition: all 0.3s ease; hover: { css: hoverCss }` },
+    style: { gap: "1rem", css: `flex: 1 1 ${Math.floor(100 / cols)}%;`, background: "{colors.surface}", padding: "2rem", borderRadius: "{radius.md}", boxShadow: "{shadow.card}", transition: "all 0.3s ease" },
+    motion: { entrance: "fadeInUp", entranceDelay: 0.1 * i, hover: "lift" },
     children: [
       ...(s.icon ? [{ type: "icon" as const, iconName: s.icon, style: { color: "{colors.accent}", fontSize: "2.5rem" } }] : []),
       { type: "heading" as const, level: 3, text: s.title ?? "", style: { fontSize: "1.25rem", fontWeight: "600", color: "{colors.primary}" } },
@@ -782,7 +873,7 @@ function imageCarousel(p: ImageCarouselParams): BlueprintNode {
   const head: BlueprintNode[] = [];
   if (p.heading) head.push(sectionHeading(p.heading));
   const images = (p.images ?? []).map((url) => ({ url, caption: "" }));
-  const widget: BlueprintNode = { type: "carousel", props: { images, autoplay: p.autoplay ?? false, loop: p.loop ?? true } };
+  const widget: BlueprintNode = { type: "carousel", props: { images, autoplay: p.autoplay ?? false, loop: p.loop ?? true }, motion: { entrance: "fadeIn" } };
   return section([container([...head, widget], { gap: "2rem" })]);
 }
 
@@ -791,7 +882,7 @@ function socialStrip(p: SocialStripParams): BlueprintNode {
   const head: BlueprintNode[] = [];
   if (p.heading) head.push({ type: "text", text: p.heading, style: { color: "{colors.muted}", textAlign: p.align ?? "center", fontSize: "0.95rem" } });
   const items = (p.items ?? []).map((it) => ({ iconName: it.icon ?? "fa-link", url: it.url ?? "#", label: "" }));
-  const widget: BlueprintNode = { type: "social-icons", items, style: { ...(p.align ? { textAlign: p.align } : {}) } };
+  const widget: BlueprintNode = { type: "social-icons", items, style: { ...(p.align ? { textAlign: p.align } : {}) }, motion: { entrance: "fadeIn" } };
   return section([container([...head, widget], { gap: "1rem", alignItems: "center" })], { padding: { top: "2.5rem", bottom: "2.5rem" } });
 }
 
@@ -807,7 +898,7 @@ function countdown(p: CountdownParams): BlueprintNode {
     <div class="count-item"><span class="count-num" id="seconds">00</span><span class="count-label">${labels[3]}</span></div>
   </div>`;
   const css = `.countdown-timer{display:flex;gap:2rem;justify-content:center}.count-item{display:flex;flex-direction:column;align-items:center;gap:0.5rem}.count-num{font-size:3rem;font-weight:700;color:{colors.primary}}.count-label{font-size:0.875rem;color:{colors.muted};text-transform:uppercase}`;
-  const htmlNode: BlueprintNode = { type: "html", html, style: { css } };
+  const htmlNode: BlueprintNode = { type: "html", html, style: { css }, motion: { entrance: "zoomIn" } };
   return section([container([...head, htmlNode], { gap: "2rem", alignItems: "center" })], { background: "{colors.surface}" });
 }
 
@@ -816,10 +907,11 @@ function blogGrid(p: BlogGridParams): BlueprintNode {
   const head: BlueprintNode[] = [];
   if (p.heading) head.push(sectionHeading(p.heading));
   const cols = p.columns ?? 3;
-  const cards = (p.posts ?? []).map((post) => ({
+  const cards = (p.posts ?? []).map((post, i) => ({
     type: "flex" as const,
     direction: "column" as const,
-    style: { gap: "0.75rem", css: `flex: 1 1 ${Math.floor(100 / cols)}%;`, background: "{colors.surface}", borderRadius: "{radius.md}", overflow: "hidden", boxShadow: "{shadow.card}" },
+    style: { gap: "0.75rem", css: `flex: 1 1 ${Math.floor(100 / cols)}%;`, background: "{colors.surface}", borderRadius: "{radius.md}", overflow: "hidden", boxShadow: "{shadow.card}", hover: { css: "transform: scale(1.02);" } },
+    motion: { entrance: "fadeInUp", entranceDelay: 0.1 * i },
     children: [
       ...(post.image ? [{ type: "image" as const, src: post.image, alt: post.title ?? "", style: { width: "100%", css: "height: 200px; object-fit: cover;" } }] : []),
       { type: "flex" as const, direction: "column" as const, style: { gap: "0.5rem", padding: "1.5rem" }, children: [
@@ -837,10 +929,10 @@ function blogGrid(p: BlogGridParams): BlueprintNode {
 /** 10. 404 error page section. */
 function error404(p: Error404Params): BlueprintNode {
   const kids: BlueprintNode[] = [
-    { type: "heading", level: 1, text: p.heading ?? "404", style: { fontSize: "8rem", fontWeight: "700", color: "{colors.primary}", textAlign: "center", lineHeight: "1", mobile: { fontSize: "5rem" } } },
-    { type: "text", text: p.text ?? "Page not found", style: { fontSize: "1.25rem", color: "{colors.muted}", textAlign: "center" } },
+    { type: "heading", level: 1, text: p.heading ?? "404", style: { fontSize: "8rem", fontWeight: "700", color: "{colors.primary}", textAlign: "center", lineHeight: "1", mobile: { fontSize: "5rem" } }, motion: { entrance: "bounceIn" } },
+    { type: "text", text: p.text ?? "Page not found", style: { fontSize: "1.25rem", color: "{colors.muted}", textAlign: "center" }, motion: { entrance: "fadeInUp", entranceDelay: 0.3 } },
   ];
-  if (p.ctaText) kids.push({ type: "button", text: p.ctaText, href: p.ctaHref ?? "/", style: { color: "#fff", background: "{colors.accent}", fontWeight: "700", padding: { top: "1rem", right: "2.5rem", bottom: "1rem", left: "2.5rem" }, borderRadius: "{radius.md}" } });
+  if (p.ctaText) kids.push({ type: "button", text: p.ctaText, href: p.ctaHref ?? "/", style: { color: "#fff", background: "{colors.accent}", fontWeight: "700", padding: { top: "1rem", right: "2.5rem", bottom: "1rem", left: "2.5rem" }, borderRadius: "{radius.md}" }, motion: { entrance: "fadeInUp", entranceDelay: 0.4 } });
   if (p.image) kids.push({ type: "image", src: p.image, style: { width: "300px", borderRadius: "{radius.lg}" } });
   return section([
     { type: "flex", direction: "column", style: { gap: "1.5rem", alignItems: "center", justifyContent: "center", minHeight: "60vh", maxWidth: "600px", width: "100%", margin: "0 auto", padding: { left: "1.5rem", right: "1.5rem" } }, children: kids },
@@ -850,14 +942,15 @@ function error404(p: Error404Params): BlueprintNode {
 /** 11. Coming soon / maintenance page. */
 function comingSoon(p: ComingSoonParams): BlueprintNode {
   const kids: BlueprintNode[] = [
-    { type: "heading", level: 1, text: p.heading ?? "Coming Soon", style: { fontSize: "3rem", fontWeight: "700", color: "#FFFFFF", textAlign: "center", mobile: { fontSize: "2rem" } } },
+    { type: "heading", level: 1, text: p.heading ?? "Coming Soon", style: { fontSize: "3rem", fontWeight: "700", color: "#FFFFFF", textAlign: "center", mobile: { fontSize: "2rem" } }, motion: { entrance: "fadeInUp", entranceDelay: 0.2 } },
   ];
-  if (p.text) kids.push({ type: "text", text: p.text, style: { fontSize: "1.125rem", color: "#FFFFFF", textAlign: "center", css: "opacity: 0.9;" } });
+  if (p.text) kids.push({ type: "text", text: p.text, style: { fontSize: "1.125rem", color: "#FFFFFF", textAlign: "center", css: "opacity: 0.9;" }, motion: { entrance: "fadeInUp", entranceDelay: 0.3 } });
   if (p.countdown && p.targetDate) {
     kids.push({
       type: "html",
       html: `<div class="countdown" data-target="${p.targetDate}"><span id="cd-days"></span>d <span id="cd-hours"></span>h <span id="cd-mins"></span>m <span id="cd-secs"></span>s</div>`,
       style: { css: ".countdown{font-size:2rem;font-weight:700;color:#fff;text-align:center}" },
+      motion: { entrance: "zoomIn", entranceDelay: 0.3 },
     });
   }
   if (p.socialLinks?.length) {
